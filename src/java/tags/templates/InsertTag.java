@@ -25,6 +25,7 @@ public class InsertTag extends BodyTagSupport {
             pageContext.include(template);
         }
         catch(Exception ex) { // IOException or ServletException
+            System.out.println(ex.getMessage());
             throw new JspException(ex.getMessage());
         }
         stack.pop();

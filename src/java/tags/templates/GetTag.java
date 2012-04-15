@@ -4,6 +4,7 @@ import java.util.Hashtable;
 import java.util.Stack;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
+import javax.servlet.jsp.tagext.BodyContent;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 public class GetTag extends BodyTagSupport {
@@ -28,7 +29,8 @@ public class GetTag extends BodyTagSupport {
             PageParameter param = (PageParameter)params.get(name);
 
             if(param == null) {
-                String body = getBodyContent().getString();
+                BodyContent bodyContent = getBodyContent();
+                String body = bodyContent == null ? "" : bodyContent.getString();
                 try {
                     pageContext.getOut().print(body);
                 }

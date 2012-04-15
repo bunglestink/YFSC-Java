@@ -1,11 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>${name}</h1>
-    </body>
-</html>
+<%@taglib prefix="template" uri="/WEB-INF/views/shared/template.tld" %>
+<template:insert template="/WEB-INF/views/shared/master.jsp">
+    <template:put name="MainContent">
+        <h2>Membership</h2>
+    </template:put>
+</template:insert>
