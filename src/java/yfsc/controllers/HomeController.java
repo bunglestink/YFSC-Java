@@ -3,46 +3,45 @@ package yfsc.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/home/*.do")
+@RequestMapping("/home")
 public class HomeController {
     
-    @RequestMapping(method=RequestMethod.GET)
+    @RequestMapping("/index.do")
     public void index(@RequestParam(value="name", required=false) String name, ModelMap model) {
         model.addAttribute("name", name);
     }
     
     
-    @RequestMapping(method=RequestMethod.GET)
+    @RequestMapping("/program.do")
     public void program() {
     }
     
     
-    @RequestMapping(method=RequestMethod.GET)
+    @RequestMapping("/calendar.do")
     public void calendar() {
     }
     
     
-    @RequestMapping(method=RequestMethod.GET)
+    @RequestMapping("/clubCoaches.do")
     public void clubCoaches() {
     }
     
-    @RequestMapping(method=RequestMethod.GET)
+    @RequestMapping("/membership.do")
     public void membership() {
     }
     
-    @RequestMapping(method=RequestMethod.GET)
+    @RequestMapping("/brochure.do")
     public void brochure() {
     }
     
-    @RequestMapping(method=RequestMethod.GET)
+    @RequestMapping("/byLaws.do")
     public void byLaws() {
     }
     
-    @RequestMapping(method=RequestMethod.GET)
+    @RequestMapping("/contactInformation.do")
     public void contactInformation() {
     }
 }
