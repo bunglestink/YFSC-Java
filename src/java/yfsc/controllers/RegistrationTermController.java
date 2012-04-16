@@ -42,26 +42,47 @@ public class RegistrationTermController {
     }
     
     @RequestMapping("/edit.do")
-    public String edit(@RequestParam("id") int id) {
+    public String edit(@RequestParam("id") int id, ModelMap model) {
         RegistrationTerm term = registrationTermService.get(id);
+
         if (term == null) {
             return "redirect:/registrationTerm/index.do";
         }
+        
+        model.addAttribute("model", term);
         return "registrationTerm/edit";
     }
     
     @RequestMapping("/commit.do")
-    public void commit() {
+    public String commit(RegistrationTerm term) {
         
+        registrationTermService.saveOrUpdate(term);
+        return "redirect:/registrationTerm/index.do";
     }
     
     @RequestMapping("/deleteConfirm.do")
-    public void deleteConfirm(@RequestParam("ID") int ID) {
+    public String deleteConfirm(@RequestParam("id") int id, ModelMap model) {
+        RegistrationTerm term = registrationTermService.get(id);
         
+        if (term == null) {
+            return "redirect:/registrationTerm/index.do";
+        }
+        // TODO: check for calendar items
+        
+        model.addAttribute("term", term);
+        return "registrationTerm/deleteConfirm";
     }
     
     @RequestMapping("/delete.do")
-    public void delete(@RequestParam("ID") int ID) {
+    public String delete(@RequestParam("id") int id) {
+        RegistrationTerm term = registrationTermService.get(id);
         
+        // TODO check for calendar items before deleting
+        
+        if (term != null) {
+            registrationTermService.delete(term);
+        }
+        
+        return "redirect:/registrationTerm/index.do";
     }
 }

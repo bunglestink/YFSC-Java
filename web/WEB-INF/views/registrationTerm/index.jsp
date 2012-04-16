@@ -17,15 +17,15 @@
             </tr>	
             <c:forEach items="${registrations}" var="term">
                 <tr>
-                    <td>${term.ID}</td>
-                    <td>${term.TermName}</td>
-                    <td>${term.StartDate}</td>
-                    <td>${term.EndDate}</td>
+                    <td>${term.id}</td>
+                    <td>${term.termName}</td>
+                    <td>${term.startDate}</td>
+                    <td>${term.endDate}</td>
                     <td>
                             <%-- ${term.CalendarItems.Count} - ${Html.ActionLink("View", "Index", "CalendarItem", new { id = term.ID }, null)}--%>
                     </td>
-                    <td><a href="<c:url value="/registrationTerm/edit.do" />">Edit</a></td>
-                    <td><a href="<c:url value="/registrationTerm/deleteConfirm.do" />">Delete</a></td>
+                    <td><a href="<c:url value="/registrationTerm/edit.do" />?id=${term.id}">Edit</a></td>
+                    <td><a href="<c:url value="/registrationTerm/deleteConfirm.do" />?id=${term.id}">Delete</a></td>
                 </tr>	
             </c:forEach>
 	</table>
