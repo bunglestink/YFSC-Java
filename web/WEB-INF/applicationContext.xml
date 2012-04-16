@@ -9,20 +9,28 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 
     
-    <bean id="mySessionFactory" 
+    <bean id="sessionFactory" 
         class="yfsc.entities.persistence.HibernateUtil" 
         factory-method="getSessionFactory" 
         scope="singleton" />
     
     <bean id="hibernateFilter" class="yfsc.infrastructure.HibernateFilter">
-        <constructor-arg index="0" ref="mySessionFactory" />
+        <constructor-arg index="0" ref="sessionFactory" />
     </bean>
     
-    <bean id="myRegistrationTermService" class="yfsc.entities.persistence.RegistrationTermService">
-        <constructor-arg index="0" ref="mySessionFactory" />
+    <bean id="registrationTermService" class="yfsc.entities.persistence.RegistrationTermService">
+        <constructor-arg index="0" ref="sessionFactory" />
     </bean>
     
-    <bean id="myRegistrationTermController" class="yfsc.controllers.RegistrationTermController">
-        <constructor-arg index="0" ref="myRegistrationTermService" />
+    <bean id="registrationTermController" class="yfsc.controllers.RegistrationTermController">
+        <constructor-arg index="0" ref="registrationTermService" />
+    </bean>
+	
+	<bean id="coachService" class="yfsc.entities.persistence.CoachService">
+        <constructor-arg index="0" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="coachController" class="yfsc.controllers.CoachController">
+        <constructor-arg index="0" ref="coachService" />
     </bean>
 </beans>

@@ -8,6 +8,7 @@
     <property name="hibernate.connection.url">jdbc:postgresql://bunglestink.homeip.net:5432/yfsc</property>
     <property name="hibernate.connection.username">postgres</property>
     <property name="hibernate.connection.password">43kbeijK</property>
-    <mapping class="yfsc.entities.RegistrationTerm" />
+    <mapping class="yfsc.entities.Coach" />
+	<mapping class="yfsc.entities.RegistrationTerm" />
   </session-factory>
 </hibernate-configuration>
