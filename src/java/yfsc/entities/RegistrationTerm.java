@@ -2,11 +2,17 @@ package yfsc.entities;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import javax.persistence.*;
 
 @Entity
 @Table(name="RegistrationTerms")
 public class RegistrationTerm extends EntityObject {
+
+	public RegistrationTerm() {
+		this.calendarItems = new LinkedList<CalendarItem>();
+	}
     
     @Column(name="TermName")
     private String termName;
@@ -19,8 +25,9 @@ public class RegistrationTerm extends EntityObject {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date endDate;
 
-    
-    
+    @OneToMany(mappedBy = "registrationTerm")
+	private List<CalendarItem> calendarItems;
+
     
     
     private static SimpleDateFormat dateFormat;
@@ -29,68 +36,57 @@ public class RegistrationTerm extends EntityObject {
     }
     
     public String getStartDateString() {
-        return dateFormat.format(startDate);
+        return dateFormat.format(getStartDate());
     }
     public void setStartDateString(String startDate) {
         try {
-            this.startDate = dateFormat.parse(startDate.trim());
+            this.setStartDate(dateFormat.parse(startDate.trim()));
         }
         catch (Throwable x) {
-            this.startDate = null;
+            this.setStartDate(null);
         }
     }
     public String getEndDateString() {
-        return dateFormat.format(endDate);
+        return dateFormat.format(getEndDate());
     }
     public void setEndDateString(String endDate) {
         try {
-            this.endDate = dateFormat.parse(endDate.trim());
+            this.setEndDate(dateFormat.parse(endDate.trim()));
         }
         catch (Throwable x) {
-            this.endDate = null;
+            this.setEndDate(null);
         }
     }
-    
 
-    /**
-     * @return the termName
-     */
-    public String getTermName() {
-        return termName;
-    }
+	public String getTermName() {
+		return termName;
+	}
 
-    /**
-     * @param termName the termName to set
-     */
-    public void setTermName(String termName) {
-        this.termName = termName;
-    }
+	public void setTermName(String termName) {
+		this.termName = termName;
+	}
 
-    /**
-     * @return the startDate
-     */
-    public Date getStartDate() {
-        return startDate;
-    }
+	public Date getStartDate() {
+		return startDate;
+	}
 
-    /**
-     * @param startDate the startDate to set
-     */
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
 
-    /**
-     * @return the endDate
-     */
-    public Date getEndDate() {
-        return endDate;
-    }
+	public Date getEndDate() {
+		return endDate;
+	}
 
-    /**
-     * @param endDate the endDate to set
-     */
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public List<CalendarItem> getCalendarItems() {
+		return calendarItems;
+	}
+
+	public void setCalendarItems(List<CalendarItem> calendarItems) {
+		this.calendarItems = calendarItems;
+	}
 }

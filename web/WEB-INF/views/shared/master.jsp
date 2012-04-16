@@ -28,7 +28,7 @@
     </script>
 </head>
 <body>
-    <div id="page" class="page" data-message=""><!-- %= TempData[message] %-->
+    <div id="page" class="page" data-message="${message}">
 
         <div id="header">
             <div id="title">

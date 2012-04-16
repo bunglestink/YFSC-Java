@@ -27,6 +27,15 @@
         <constructor-arg index="0" ref="announcementService" />
     </bean>
 	
+	<bean id="calendarItemService" class="yfsc.entities.persistence.CalendarItemService">
+        <constructor-arg index="0" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="calendarItemController" class="yfsc.controllers.CalendarItemController">
+        <constructor-arg index="0" ref="calendarItemService" />
+		<constructor-arg index="1" ref="registrationTermService" />
+    </bean>
+	
 	<bean id="coachService" class="yfsc.entities.persistence.CoachService">
         <constructor-arg index="0" ref="sessionFactory" />
     </bean>
