@@ -23,10 +23,12 @@ public class AnnouncementController {
     
     
     @RequestMapping("/index.do")
-    public void index(ModelMap model) {
+    public String index(ModelMap model) {
         
         List<Announcement> announcementes = announcementService.list();
         model.addAttribute("announcements", announcementes);
+		
+		return "announcement/index";
     }
     
     
@@ -45,7 +47,7 @@ public class AnnouncementController {
         Announcement announcement = announcementService.get(id);
 
         if (announcement == null) {
-            return "redirect:/announcement/index.do";
+            return index(model);
         }
         
         model.addAttribute("announcement", announcement);
@@ -53,11 +55,11 @@ public class AnnouncementController {
     }
     
     @RequestMapping("/commit.do")
-    public String commit(Announcement announcement) {
+    public String commit(Announcement announcement, ModelMap model) {
         
         announcementService.saveOrUpdate(announcement);
-        // TODO: "tempdata" message
-        return "redirect:/announcement/index.do";
+        model.addAttribute("message", "Announcement '" + announcement.getTitle() + "' saved.");
+        return index(model);
     }
     
     @RequestMapping("/deleteConfirm.do")
@@ -65,7 +67,7 @@ public class AnnouncementController {
         Announcement announcement = announcementService.get(id);
         
         if (announcement == null) {
-            return "redirect:/announcement/index.do";
+            return index(model);
         }
         
         model.addAttribute("announcement", announcement);
@@ -73,14 +75,14 @@ public class AnnouncementController {
     }
     
     @RequestMapping("/delete.do")
-    public String delete(@RequestParam("id") int id) {
+    public String delete(@RequestParam("id") int id, ModelMap model) {
         Announcement announcement = announcementService.get(id);
         
         if (announcement != null) {
             announcementService.delete(announcement);
-            // TODO: "tempdata" message
+            model.addAttribute("message", "Announcement '" + announcement.getTitle() + "' removed.");
         }
         
-        return "redirect:/announcement/index.do";
+        return index(model);
     }
 }

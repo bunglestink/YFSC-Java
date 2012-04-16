@@ -22,10 +22,12 @@ public class CoachController {
     
     
     @RequestMapping("/index.do")
-    public void index(ModelMap model) {
+    public String index(ModelMap model) {
         
         List<Coach> coaches = coachService.list();
         model.addAttribute("coaches", coaches);
+		
+		return "coach/index";
     }
     
     
@@ -43,7 +45,7 @@ public class CoachController {
         Coach coach = coachService.get(id);
 
         if (coach == null) {
-            return "redirect:/coach/index.do";
+            return index(model);
         }
         
         model.addAttribute("coach", coach);
@@ -51,11 +53,11 @@ public class CoachController {
     }
     
     @RequestMapping("/commit.do")
-    public String commit(Coach coach) {
+    public String commit(Coach coach, ModelMap model) {
         
         coachService.saveOrUpdate(coach);
-        // TODO: "tempdata" message
-        return "redirect:/coach/index.do";
+        model.addAttribute("message", "Coach '" + coach.getName() + "' saved.");
+        return index(model);
     }
     
     @RequestMapping("/deleteConfirm.do")
@@ -63,7 +65,7 @@ public class CoachController {
         Coach coach = coachService.get(id);
         
         if (coach == null) {
-            return "redirect:/coach/index.do";
+            return index(model);
         }
         
         model.addAttribute("coach", coach);
@@ -71,14 +73,14 @@ public class CoachController {
     }
     
     @RequestMapping("/delete.do")
-    public String delete(@RequestParam("id") int id) {
+    public String delete(@RequestParam("id") int id, ModelMap model) {
         Coach coach = coachService.get(id);
         
         if (coach != null) {
             coachService.delete(coach);
-            // TODO: "tempdata" message
+            model.addAttribute("message", "Coach '" + coach.getName() + "' saved.");
         }
         
-        return "redirect:/coach/index.do";
+        return index(model);
     }
 }

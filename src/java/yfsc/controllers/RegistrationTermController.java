@@ -23,10 +23,12 @@ public class RegistrationTermController {
     
     
     @RequestMapping("/index.do")
-    public void index(ModelMap model) {
+    public String index(ModelMap model) {
         
         List<RegistrationTerm> registrations = registrationTermService.list();
         model.addAttribute("registrations", registrations);
+		
+		return "registrationTerm/index";
     }
     
     
@@ -46,7 +48,7 @@ public class RegistrationTermController {
         RegistrationTerm term = registrationTermService.get(id);
 
         if (term == null) {
-            return "redirect:/registrationTerm/index.do";
+            return index(model);
         }
         
         model.addAttribute("model", term);
@@ -54,10 +56,11 @@ public class RegistrationTermController {
     }
     
     @RequestMapping("/commit.do")
-    public String commit(RegistrationTerm term) {
+    public String commit(RegistrationTerm term, ModelMap model) {
         
         registrationTermService.saveOrUpdate(term);
-        return "redirect:/registrationTerm/index.do";
+		model.addAttribute("message", "Registration term '" + term.getTermName() + "' saved.");
+        return index(model);
     }
     
     @RequestMapping("/deleteConfirm.do")
@@ -65,24 +68,30 @@ public class RegistrationTermController {
         RegistrationTerm term = registrationTermService.get(id);
         
         if (term == null) {
-            return "redirect:/registrationTerm/index.do";
+            return index(model);
         }
-        // TODO: check for calendar items
+        
+		if (!term.getCalendarItems().isEmpty()) {
+			return "registrationTerm/deleteError";
+		}
         
         model.addAttribute("term", term);
         return "registrationTerm/deleteConfirm";
     }
     
     @RequestMapping("/delete.do")
-    public String delete(@RequestParam("id") int id) {
+    public String delete(@RequestParam("id") int id, ModelMap model) {
         RegistrationTerm term = registrationTermService.get(id);
         
-        // TODO check for calendar items before deleting
+        if (!term.getCalendarItems().isEmpty()) {
+			return "registrationTerm/deleteError";
+		}
         
         if (term != null) {
             registrationTermService.delete(term);
+			model.addAttribute("message", "Registration term '" + term.getTermName() + "' removed.");
         }
         
-        return "redirect:/registrationTerm/index.do";
+        return index(model);
     }
 }
