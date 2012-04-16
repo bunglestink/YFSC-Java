@@ -33,8 +33,6 @@ public class RegistrationTerm extends EntityObject {
     }
     public void setStartDateString(String startDate) {
         try {
-            System.out.println(startDate);
-            System.out.println(dateFormat.parse(startDate));
             this.startDate = dateFormat.parse(startDate.trim());
         }
         catch (Throwable x) {

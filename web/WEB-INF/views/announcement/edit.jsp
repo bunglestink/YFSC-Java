@@ -5,32 +5,32 @@
 <template:insert template="/WEB-INF/views/shared/master.jsp">
     <template:put name="MainContent">
         <c:choose>
-            <c:when test="${coach.id == 0}">
-                <h2>Create Coach</h2>
+            <c:when test="${announcement.id == 0}">
+                <h2>Create Announcement</h2>
             </c:when>
             <c:otherwise>
-                <h2>Edit Coach</h2>
+                <h2>Edit Announcement</h2>
             </c:otherwise>
         </c:choose>
 		<div class="edit-area">
-			<form:form action="commit.do" modelAttribute="coach">
+			<form:form action="commit.do" modelAttribute="announcement">
 				<fieldset>
 					<div>
 						<label>ID:</label>
-						${coach.id}
+						${announcement.id}
 						<form:hidden path="id" />
 					</div>
 					<div>
-						<label>Name:</label>
-						<form:input path="name" />
+						<label>Date:</label>
+						<form:input path="announcementDateString" cssClass="date" />
 					</div>
 					<div>
-						<label>Primary Info:</label>
-						<form:textarea path="primaryInfo" cols="50" rows="15" />
+						<label>Title:</label>
+						<form:input path="title" />
 					</div>
 					<div>
-						<label>Secondary Info:</label>
-						<form:textarea path="secondaryInfo" cols="50" rows="15" />
+						<label>Body:</label>
+						<form:textarea path="body" rows="20" cols="50" />
 					</div>
 					<div>
 						<label></label>

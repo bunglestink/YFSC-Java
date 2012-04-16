@@ -18,12 +18,13 @@
         <constructor-arg index="0" ref="sessionFactory" />
     </bean>
     
-    <bean id="registrationTermService" class="yfsc.entities.persistence.RegistrationTermService">
+	
+	<bean id="announcementService" class="yfsc.entities.persistence.AnnouncementService">
         <constructor-arg index="0" ref="sessionFactory" />
     </bean>
     
-    <bean id="registrationTermController" class="yfsc.controllers.RegistrationTermController">
-        <constructor-arg index="0" ref="registrationTermService" />
+    <bean id="announcementController" class="yfsc.controllers.AnnouncementController">
+        <constructor-arg index="0" ref="announcementService" />
     </bean>
 	
 	<bean id="coachService" class="yfsc.entities.persistence.CoachService">
@@ -32,5 +33,13 @@
     
     <bean id="coachController" class="yfsc.controllers.CoachController">
         <constructor-arg index="0" ref="coachService" />
+    </bean>
+	
+    <bean id="registrationTermService" class="yfsc.entities.persistence.RegistrationTermService">
+        <constructor-arg index="0" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="registrationTermController" class="yfsc.controllers.RegistrationTermController">
+        <constructor-arg index="0" ref="registrationTermService" />
     </bean>
 </beans>
