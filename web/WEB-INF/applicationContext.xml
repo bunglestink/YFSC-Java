@@ -21,6 +21,7 @@
 	
 	<bean id="announcementService" class="yfsc.entities.persistence.AnnouncementService">
         <constructor-arg index="0" ref="sessionFactory" />
+		<property name="currentAnnouncementCount" value="5" />
     </bean>
     
     <bean id="announcementController" class="yfsc.controllers.AnnouncementController">
@@ -43,6 +44,12 @@
     <bean id="coachController" class="yfsc.controllers.CoachController">
         <constructor-arg index="0" ref="coachService" />
     </bean>
+	
+	<bean id="homeController" class="yfsc.controllers.HomeController">
+		<constructor-arg index="0" ref="announcementService" />
+		<constructor-arg index="1" ref="coachService" />
+		<constructor-arg index="2" ref="registrationTermService" />
+	</bean>
 	
     <bean id="registrationTermService" class="yfsc.entities.persistence.RegistrationTermService">
         <constructor-arg index="0" ref="sessionFactory" />

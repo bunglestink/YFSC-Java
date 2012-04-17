@@ -10,15 +10,17 @@ import yfsc.entities.Announcement;
 @Service
 public class AnnouncementService implements IPersistenceService<Announcement> {
 
-    SessionFactory sessionFactory;
+	private SessionFactory sessionFactory;
+	private int currentAnnouncementCount;
     
     public AnnouncementService(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
+		this.currentAnnouncementCount = 5; // default configuration
     }
     
     @Override
     public List<Announcement> list() {
-        Query query = sessionFactory.getCurrentSession().createQuery("from Announcement c order by c.announcementDate desc");
+        Query query = sessionFactory.getCurrentSession().createQuery("from Announcement a order by a.announcementDate desc");
         return Collections.checkedList(query.list(), Announcement.class);
     }
     
@@ -41,4 +43,21 @@ public class AnnouncementService implements IPersistenceService<Announcement> {
     public void delete(Announcement announcement) {
         sessionFactory.getCurrentSession().delete(announcement);
     }
+	
+	public List<Announcement> listCurrentAnnouncements() {
+		Query query = sessionFactory.getCurrentSession()
+				.createQuery("from Announcement a order by a.announcementDate desc")
+				.setMaxResults(getCurrentAnnouncementCount());
+		return Collections.checkedList(query.list(), Announcement.class);
+	}
+
+
+	// propery methods:
+	public int getCurrentAnnouncementCount() {
+		return currentAnnouncementCount;
+	}
+
+	public void setCurrentAnnouncementCount(int currentAnnouncementCount) {
+		this.currentAnnouncementCount = currentAnnouncementCount;
+	}	
 }
