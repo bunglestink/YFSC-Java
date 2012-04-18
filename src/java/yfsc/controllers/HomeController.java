@@ -16,24 +16,14 @@ import yfsc.entities.persistence.CoachService;
 @RequestMapping("/home")
 public class HomeController {
     
-	private AnnouncementService announcementService;
-	private CoachService coachService;
-	private RegistrationTermService registrationTermService;
+	@Autowired private AnnouncementService announcementService;
+	@Autowired private CoachService coachService;
+	@Autowired private RegistrationTermService registrationTermService;
 	
-	@Autowired
-	public HomeController(
-			AnnouncementService announcementService, 
-			CoachService coachService,
-			RegistrationTermService regirstrationTermService) {
-		
-		this.announcementService = announcementService;
-		this.coachService = coachService;
-		this.registrationTermService = regirstrationTermService;
-	}
 	
     @RequestMapping("/index.do")
     public String index(ModelMap model) {
-		List<Announcement> announcements = announcementService.listCurrentAnnouncements();
+		List<Announcement> announcements = getAnnouncementService().listCurrentAnnouncements();
 		model.addAttribute("announcements", announcements);
 		return "home/index";
     }
@@ -42,7 +32,6 @@ public class HomeController {
     @RequestMapping("/program.do")
     public void program() {
     }
-    
     
     @RequestMapping("/calendar.do")
     public void calendar() {
@@ -54,13 +43,13 @@ public class HomeController {
     public String clubCoaches(@RequestParam(value="id", required=false) Integer id, ModelMap model) {
 		// null id, show all
 		if (id == null) {
-			List<Coach> coaches = coachService.list();
+			List<Coach> coaches = getCoachService().list();
 			model.addAttribute("coaches", coaches);
 			return "home/coaches";
 		}
 		
 		// not null, single coach
-		Coach coach = coachService.get(id);
+		Coach coach = getCoachService().get(id);
 		if (coach == null) {
 			return index(model);
 		}
@@ -83,4 +72,32 @@ public class HomeController {
     @RequestMapping("/contactInformation.do")
     public void contactInformation() {
     }
+
+
+	
+	
+	
+	public AnnouncementService getAnnouncementService() {
+		return announcementService;
+	}
+
+	public void setAnnouncementService(AnnouncementService announcementService) {
+		this.announcementService = announcementService;
+	}
+
+	public CoachService getCoachService() {
+		return coachService;
+	}
+
+	public void setCoachService(CoachService coachService) {
+		this.coachService = coachService;
+	}
+
+	public RegistrationTermService getRegistrationTermService() {
+		return registrationTermService;
+	}
+
+	public void setRegistrationTermService(RegistrationTermService registrationTermService) {
+		this.registrationTermService = registrationTermService;
+	}
 }

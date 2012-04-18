@@ -45,12 +45,6 @@
         <constructor-arg index="0" ref="coachService" />
     </bean>
 	
-	<bean id="homeController" class="yfsc.controllers.HomeController">
-		<constructor-arg index="0" ref="announcementService" />
-		<constructor-arg index="1" ref="coachService" />
-		<constructor-arg index="2" ref="registrationTermService" />
-	</bean>
-	
     <bean id="registrationTermService" class="yfsc.entities.persistence.RegistrationTermService">
         <constructor-arg index="0" ref="sessionFactory" />
     </bean>
@@ -58,4 +52,13 @@
     <bean id="registrationTermController" class="yfsc.controllers.RegistrationTermController">
         <constructor-arg index="0" ref="registrationTermService" />
     </bean>
+	
+	<bean id="userService" class="yfsc.entities.persistence.UserService">
+		<constructor-arg index="0" ref="sessionFactory" />
+		<property name="rolePrefix" value="ROLE_" />
+	</bean>
+	
+	<bean id="userDetailsService" class="yfsc.infrastructure.YfscUserDetailsService">
+		<constructor-arg index="0" ref="userService" />
+	</bean>
 </beans>
