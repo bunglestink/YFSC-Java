@@ -647,44 +647,104 @@ exists or setup the property manually. For example like this:
         <dirname file="${dist.war}" property="dist.jar.dir"/>
         <mkdir dir="${dist.jar.dir}"/>
         <jar compress="${jar.compress}" jarfile="${dist.war}">
-            <fileset dir="${build.web.dir}" excludes="WEB-INF/classes/.netbeans_*"/>
+            <fileset dir="${build.web.dir}"/>
         </jar>
     </target>
     <target depends="init,compile,compile-jsps,-pre-dist" if="do.war.package.with.custom.manifest" name="-do-dist-with-manifest">
         <dirname file="${dist.war}" property="dist.jar.dir"/>
         <mkdir dir="${dist.jar.dir}"/>
         <jar compress="${jar.compress}" jarfile="${dist.war}" manifest="${build.meta.inf.dir}/MANIFEST.MF">
-            <fileset dir="${build.web.dir}" excludes="WEB-INF/classes/.netbeans_*"/>
+            <fileset dir="${build.web.dir}"/>
         </jar>
     </target>
     <target depends="init,compile,compile-jsps,-pre-dist" if="do.tmp.war.package.without.custom.manifest" name="-do-tmp-dist-without-manifest">
         <dirname file="${dist.war}" property="dist.jar.dir"/>
         <mkdir dir="${dist.jar.dir}"/>
         <jar compress="${jar.compress}" jarfile="${dist.war}">
-            <fileset dir="${build.web.dir}" excludes="WEB-INF/classes/.netbeans_*"/>
+            <fileset dir="${build.web.dir}"/>
         </jar>
     </target>
     <target depends="init,compile,compile-jsps,-pre-dist" if="do.tmp.war.package.with.custom.manifest" name="-do-tmp-dist-with-manifest">
         <dirname file="${dist.war}" property="dist.jar.dir"/>
         <mkdir dir="${dist.jar.dir}"/>
         <jar compress="${jar.compress}" jarfile="${dist.war}" manifest="${build.meta.inf.dir}/MANIFEST.MF">
-            <fileset dir="${build.web.dir}" excludes="WEB-INF/classes/.netbeans_*"/>
+            <fileset dir="${build.web.dir}"/>
         </jar>
     </target>
     <target depends="init,compile,compile-jsps,-pre-dist,-do-dist-with-manifest,-do-dist-without-manifest" name="do-dist"/>
     <target depends="init" if="dist.ear.dir" name="library-inclusion-in-manifest">
-        <copyfiles files="${libs.spring-framework300.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${libs.jstl11.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${libs.hibernate-support.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${libs.PostgreSQLDriver.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.spring-security-acl-3.1.0.RELEASE.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.spring-security-aspects-3.1.0.RELEASE.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.spring-security-cas-3.1.0.RELEASE.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.spring-security-config-3.1.0.RELEASE.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.spring-security-core-3.1.0.RELEASE.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.spring-security-crypto-3.1.0.RELEASE.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.spring-security-ldap-3.1.0.RELEASE.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.spring-security-openid-3.1.0.RELEASE.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.spring-security-remoting-3.1.0.RELEASE.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.spring-security-taglibs-3.1.0.RELEASE.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.spring-security-web-3.1.0.RELEASE.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.org.springframework.aop-3.1.1.RELEASE.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.org.springframework.asm-3.1.1.RELEASE.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.org.springframework.aspects-3.1.1.RELEASE.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.org.springframework.beans-3.1.1.RELEASE.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.org.springframework.context-3.1.1.RELEASE.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.org.springframework.context.support-3.1.1.RELEASE.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.org.springframework.core-3.1.1.RELEASE.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.org.springframework.expression-3.1.1.RELEASE.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.org.springframework.instrument-3.1.1.RELEASE.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.org.springframework.instrument.tomcat-3.1.1.RELEASE.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.org.springframework.jdbc-3.1.1.RELEASE.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.org.springframework.jms-3.1.1.RELEASE.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.org.springframework.orm-3.1.1.RELEASE.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.org.springframework.oxm-3.1.1.RELEASE.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.org.springframework.test-3.1.1.RELEASE.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.org.springframework.transaction-3.1.1.RELEASE.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.org.springframework.web-3.1.1.RELEASE.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.org.springframework.web.portlet-3.1.1.RELEASE.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.org.springframework.web.servlet-3.1.1.RELEASE.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.org.springframework.web.struts-3.1.1.RELEASE.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
         <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update"/>
     </target>
     <target depends="init" name="library-inclusion-in-archive" unless="dist.ear.dir">
-        <copyfiles files="${libs.spring-framework300.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.jstl11.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.hibernate-support.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.PostgreSQLDriver.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.spring-security-acl-3.1.0.RELEASE.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.spring-security-aspects-3.1.0.RELEASE.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.spring-security-cas-3.1.0.RELEASE.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.spring-security-config-3.1.0.RELEASE.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.spring-security-core-3.1.0.RELEASE.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.spring-security-crypto-3.1.0.RELEASE.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.spring-security-ldap-3.1.0.RELEASE.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.spring-security-openid-3.1.0.RELEASE.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.spring-security-remoting-3.1.0.RELEASE.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.spring-security-taglibs-3.1.0.RELEASE.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.spring-security-web-3.1.0.RELEASE.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.org.springframework.aop-3.1.1.RELEASE.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.org.springframework.asm-3.1.1.RELEASE.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.org.springframework.aspects-3.1.1.RELEASE.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.org.springframework.beans-3.1.1.RELEASE.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.org.springframework.context-3.1.1.RELEASE.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.org.springframework.context.support-3.1.1.RELEASE.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.org.springframework.core-3.1.1.RELEASE.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.org.springframework.expression-3.1.1.RELEASE.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.org.springframework.instrument-3.1.1.RELEASE.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.org.springframework.instrument.tomcat-3.1.1.RELEASE.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.org.springframework.jdbc-3.1.1.RELEASE.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.org.springframework.jms-3.1.1.RELEASE.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.org.springframework.orm-3.1.1.RELEASE.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.org.springframework.oxm-3.1.1.RELEASE.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.org.springframework.test-3.1.1.RELEASE.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.org.springframework.transaction-3.1.1.RELEASE.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.org.springframework.web-3.1.1.RELEASE.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.org.springframework.web.portlet-3.1.1.RELEASE.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.org.springframework.web.servlet-3.1.1.RELEASE.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.org.springframework.web.struts-3.1.1.RELEASE.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
     </target>
     <target depends="init" if="dist.ear.dir" name="-clean-webinf-lib">
         <delete dir="${build.web.dir}/WEB-INF/lib"/>
@@ -693,7 +753,7 @@ exists or setup the property manually. For example like this:
         <dirname file="${dist.ear.war}" property="dist.jar.dir"/>
         <mkdir dir="${dist.jar.dir}"/>
         <jar compress="${jar.compress}" jarfile="${dist.ear.war}" manifest="${build.web.dir}/META-INF/MANIFEST.MF">
-            <fileset dir="${build.web.dir}" excludes="WEB-INF/classes/.netbeans_*"/>
+            <fileset dir="${build.web.dir}"/>
         </jar>
     </target>
     <target name="-post-dist">
