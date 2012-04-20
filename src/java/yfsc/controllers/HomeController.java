@@ -1,7 +1,7 @@
 package yfsc.controllers;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,14 +16,14 @@ import yfsc.entities.persistence.CoachService;
 @RequestMapping("/home")
 public class HomeController {
     
-	@Autowired private AnnouncementService announcementService;
-	@Autowired private CoachService coachService;
-	@Autowired private RegistrationTermService registrationTermService;
+	@Inject private AnnouncementService announcementService;
+	@Inject private CoachService coachService;
+	@Inject private RegistrationTermService registrationTermService;
 	
 	
     @RequestMapping("/index.do")
     public String index(ModelMap model) {
-		List<Announcement> announcements = getAnnouncementService().listCurrentAnnouncements();
+		List<Announcement> announcements = announcementService.listCurrentAnnouncements();
 		model.addAttribute("announcements", announcements);
 		return "home/index";
     }
@@ -43,13 +43,13 @@ public class HomeController {
     public String clubCoaches(@RequestParam(value="id", required=false) Integer id, ModelMap model) {
 		// null id, show all
 		if (id == null) {
-			List<Coach> coaches = getCoachService().list();
+			List<Coach> coaches = coachService.list();
 			model.addAttribute("coaches", coaches);
 			return "home/coaches";
 		}
 		
 		// not null, single coach
-		Coach coach = getCoachService().get(id);
+		Coach coach = coachService.get(id);
 		if (coach == null) {
 			return index(model);
 		}
@@ -73,31 +73,4 @@ public class HomeController {
     public void contactInformation() {
     }
 
-
-	
-	
-	
-	public AnnouncementService getAnnouncementService() {
-		return announcementService;
-	}
-
-	public void setAnnouncementService(AnnouncementService announcementService) {
-		this.announcementService = announcementService;
-	}
-
-	public CoachService getCoachService() {
-		return coachService;
-	}
-
-	public void setCoachService(CoachService coachService) {
-		this.coachService = coachService;
-	}
-
-	public RegistrationTermService getRegistrationTermService() {
-		return registrationTermService;
-	}
-
-	public void setRegistrationTermService(RegistrationTermService registrationTermService) {
-		this.registrationTermService = registrationTermService;
-	}
 }

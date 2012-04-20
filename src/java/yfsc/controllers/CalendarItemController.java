@@ -1,7 +1,7 @@
 package yfsc.controllers;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,15 +16,10 @@ import yfsc.models.ViewCalendarItem;
 @RequestMapping("/calendarItem")
 public class CalendarItemController {
     
-    CalendarItemService calendarItemService;
-	RegistrationTermService registrationTermService;
+    @Inject private CalendarItemService calendarItemService;
+	@Inject private RegistrationTermService registrationTermService;
     
-    @Autowired
-    public CalendarItemController(CalendarItemService calendarItemService, RegistrationTermService registrationTermService) {
-        
-		this.calendarItemService = calendarItemService;
-		this.registrationTermService = registrationTermService;
-    }
+    
     
     
     @RequestMapping("/index.do")

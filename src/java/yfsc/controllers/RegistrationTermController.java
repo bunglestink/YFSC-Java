@@ -2,7 +2,7 @@ package yfsc.controllers;
 
 import java.util.Date;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,12 +14,7 @@ import yfsc.entities.persistence.RegistrationTermService;
 @RequestMapping("/registrationTerm")
 public class RegistrationTermController {
     
-    RegistrationTermService registrationTermService;
-    
-    @Autowired
-    public RegistrationTermController(RegistrationTermService registrationTermService) {
-        this.registrationTermService = registrationTermService;
-    }
+    @Inject private RegistrationTermService registrationTermService;
     
     
     @RequestMapping("/index.do")

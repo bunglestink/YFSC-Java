@@ -3,7 +3,7 @@ package yfsc.controllers;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.Locale;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +15,7 @@ import yfsc.entities.AnnualRegistration;
 @RequestMapping("/annualRegistrationService")
 public class AnnualRegistrationServiceController {
 	
-	@Autowired private RegistrationService registrationService;
+	@Inject private RegistrationService registrationService;
 	
 	
 	

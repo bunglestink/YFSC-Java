@@ -24,36 +24,20 @@
         <constructor-arg index="0" ref="sessionFactory" />
 		<property name="currentAnnouncementCount" value="5" />
     </bean>
-    
-    <bean id="announcementController" class="yfsc.controllers.AnnouncementController">
-        <constructor-arg index="0" ref="announcementService" />
-    </bean>
 	
 	<bean id="calendarItemService" class="yfsc.entities.persistence.CalendarItemService">
         <constructor-arg index="0" ref="sessionFactory" />
     </bean>
     
-    <bean id="calendarItemController" class="yfsc.controllers.CalendarItemController">
-        <constructor-arg index="0" ref="calendarItemService" />
-		<constructor-arg index="1" ref="registrationTermService" />
-    </bean>
 	
 	<bean id="coachService" class="yfsc.entities.persistence.CoachService">
         <constructor-arg index="0" ref="sessionFactory" />
-    </bean>
-    
-    <bean id="coachController" class="yfsc.controllers.CoachController">
-        <constructor-arg index="0" ref="coachService" />
     </bean>
 	
 	<bean id="registrationService" class="yfsc.businesslogic.RegistrationService" />
 	
     <bean id="registrationTermService" class="yfsc.entities.persistence.RegistrationTermService">
         <constructor-arg index="0" ref="sessionFactory" />
-    </bean>
-    
-    <bean id="registrationTermController" class="yfsc.controllers.RegistrationTermController">
-        <constructor-arg index="0" ref="registrationTermService" />
     </bean>
 	
 	<bean id="userService" class="yfsc.entities.persistence.UserService">

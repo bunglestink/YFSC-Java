@@ -1,6 +1,6 @@
 package yfsc.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +11,7 @@ import yfsc.entities.persistence.UserService;
 @RequestMapping("/account")
 public class AccountController {
 	
-	@Autowired private UserService userService;
+	@Inject private UserService userService;
 	
 	
 	@RequestMapping("/logOn.do")

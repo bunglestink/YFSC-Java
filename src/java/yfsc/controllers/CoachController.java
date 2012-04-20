@@ -1,7 +1,7 @@
 package yfsc.controllers;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,12 +13,7 @@ import yfsc.entities.persistence.CoachService;
 @RequestMapping("/coach")
 public class CoachController {
     
-    CoachService coachService;
-    
-    @Autowired
-    public CoachController(CoachService coachService) {
-        this.coachService = coachService;
-    }
+    @Inject private CoachService coachService;
     
     
     @RequestMapping("/index.do")
