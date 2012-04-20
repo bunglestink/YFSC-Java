@@ -7,27 +7,27 @@ MODEL = (function () {
 			var viewModel = {
 		        // determines wether the data is finished loading
 		        loadingComplete: function () {
-		            return this.Registration && this.CurrentSessions;
+		            return this.registration && this.currentSessions;
 		        },
 		
 		        // finish creation if loading complete, then call callback
 		        dataBind: function () {
 		            if (this.loadingComplete()) {
 		                // bind selected session
-		                this.selectedSession = ko.observable(this.CurrentSessions[0]);
-		                this.TotalCost = ko.observable(0);
+		                this.selectedSession = ko.observable(this.currentSessions[0]);
+		                this.totalCost = ko.observable(0);
 		                
 		                // build view methods
 		                this.addSkater = function () {
-					        this.Registration.Skaters.push(new Skater(this.Registration));
+					        this.registration.skaters.push(new Skater(this.registration));
 					        $('.datefield').datepicker();
 					    };
 					    this.copySkater = function () {
-					        var skater = new Skater(this.Registration);
-					        skater.FirstName(this.Registration.FirstName());
-					        skater.LastName(this.Registration.LastName());
-					        skater.MiddleName(this.Registration.MiddleName());
-					        this.Registration.Skaters.push(skater);
+					        var skater = new Skater(this.registration);
+					        skater.firstName(this.registration.firstName());
+					        skater.lastName(this.registration.lastName());
+					        skater.middleName(this.registration.middleName());
+					        this.registration.skaters.push(skater);
 					        $('.datefield').datepicker();
 					    };
 					    this.addSession = function (skater) {
@@ -36,9 +36,9 @@ MODEL = (function () {
 						};
 						
 						this.refreshTotalCost = function () {
-							var data = viewModel.Registration.toJsObject();
+							var data = viewModel.registration.toJsObject();
 							
-							viewModel.TotalCost('calculating...');
+							viewModel.totalCost('calculating...');
 							
 							$.ajax({
 								url: getRegistrationCostUrl,
@@ -46,7 +46,7 @@ MODEL = (function () {
 								contentType: 'application/json',
 								data: JSON.stringify(data),
 								success: function (totalCost) {
-									viewModel.TotalCost(totalCost);
+									viewModel.totalCost(totalCost);
 									return true;
 								},
 								error: function (jqXhr, statusText) {
@@ -66,11 +66,11 @@ MODEL = (function () {
 		    $.getJSON(currentSessionsUrl, function (data) {
 		        var sessionKey, session;
 		        
-		        viewModel.CurrentSessions = ko.observableArray(data);
-		        for (sessionKey=0; sessionKey < viewModel.CurrentSessions().length; sessionKey++) {
-		        	session = viewModel.CurrentSessions()[sessionKey];
-		        	var date = UTIL.fixJsonDate(session.StartDate);
-		        	session.StartDate = (date.getMonth()+1) + '/' + date.getDate() + '/' + date.getFullYear();
+		        viewModel.currentSessions = ko.observableArray(data);
+		        for (sessionKey=0; sessionKey < viewModel.currentSessions().length; sessionKey++) {
+		        	session = viewModel.currentSessions()[sessionKey];
+		        	var date = UTIL.fixJsonDate(session.startDate);
+		        	session.startDate = (date.getMonth()+1) + '/' + date.getDate() + '/' + date.getFullYear();
 		        }
 		        
 		        viewModel.dataBind();
@@ -78,7 +78,7 @@ MODEL = (function () {
 		
 		    $.getJSON(registrationBaseUrl, function (data) {
 		        // assign viewModel from server, then try to dataBind
-		        viewModel.Registration = new Registration(data);
+		        viewModel.registration = new Registration(data);
 		        viewModel.dataBind();
 		    });
 		}
@@ -89,7 +89,7 @@ MODEL = (function () {
 	/** Registration **/
 	function Registration(data) {
 		var self = $.extend(this, ko.mapping.fromJS(data));
-        self.skaterCount = ko.computed(function () { return self.Skaters().length; });
+        self.skaterCount = ko.computed(function () { return self.skaters().length; });
         return self;
 	}
 	
@@ -99,41 +99,41 @@ MODEL = (function () {
 		}
 	
         var result = {
-        	ID: this.ID(),
-			FirstName: this.FirstName(),
-        	MiddleName: this.MiddleName(),
-        	LastName: this.LastName(),
-        	Street: this.Street(),
-        	City: this.City(),
-        	State: this.State(),
-			Zip: this.Zip(),
-			HomePhone: this.HomePhone(),
-			WorkPhone: this.WorkPhone(),
-			Email: this.Email(),
-			YaleAffiliation: this.YaleAffiliation(),
-			NameOfAffiliatedPerson: this.NameOfAffiliatedPerson(),
-			YaleAffiliationType: this.YaleAffiliationType(),
-			Department: this.Department(),
-			School: this.School(),
-			Year: this.Year(),
-			Skaters: []
+        	id: this.id(),
+			firstName: this.firstName(),
+        	middleName: this.middleName(),
+        	lastName: this.lastName(),
+        	street: this.street(),
+        	city: this.city(),
+        	state: this.state(),
+			zip: this.zip(),
+			homePhone: this.homePhone(),
+			workPhone: this.workPhone(),
+			email: this.email(),
+			yaleAffiliation: this.yaleAffiliation(),
+			nameOfAffiliatedPerson: this.nameOfAffiliatedPerson(),
+			yaleAffiliationType: this.yaleAffiliationType(),
+			department: this.department(),
+			school: this.school(),
+			year: this.year(),
+			skaters: []
 		};
 		
-        for (var skaterKey in this.Skaters()) {
-            var skater = this.Skaters()[skaterKey],
+        for (var skaterKey in this.skaters()) {
+            var skater = this.skaters()[skaterKey],
             	sessions = [];
-            for (var sessionKey in skater.Sessions()) {
-            	var session = skater.Sessions()[sessionKey];
+            for (var sessionKey in skater.sessions()) {
+            	var session = skater.sessions()[sessionKey];
             	sessions.push({
-            		ID: session.ID,
-            		TotalCost: session.TotalCost
+            		id: session.id,
+            		totalCost: session.totalCost
             	});
             }
             
-            result.Skaters.push({
-            	FirstName: skater.FirstName(),
-            	LastName: skater.LastName(),
-            	Sessions: sessions
+            result.skaters.push({
+            	firstName: skater.firstName(),
+            	lastName: skater.lastName(),
+            	sessions: sessions
             });
         }
         
@@ -146,48 +146,48 @@ MODEL = (function () {
 	function Skater(registration) {
 	    this.registration = registration;
 	    
-	    this.ID = ko.observable(0);
-	    this.FirstName = ko.observable('');
-	    this.MiddleName = ko.observable('');
-	    this.LastName = ko.observable('');
-	    this.Sex = ko.observable('');
-	    this.USCitizen = ko.observable(true);
-	    this.BirthDate = ko.observable('');
-	    this.NewRegistrant = ko.observable(true);
-	    this.Level = ko.observable('');
-	    this.Sessions = ko.observableArray([]);
+	    this.id = ko.observable(0);
+	    this.firstName = ko.observable('');
+	    this.middleName = ko.observable('');
+	    this.lastName = ko.observable('');
+	    this.sex = ko.observable('');
+	    this.usCitizen = ko.observable(true);
+	    this.birthDate = ko.observable('');
+	    this.newRegistrant = ko.observable(true);
+	    this.level = ko.observable('');
+	    this.sessions = ko.observableArray([]);
 	    
 	    this.fullName = ko.computed(function () {
-	        if (!this.FirstName && !this.LastName) {
+	        if (!this.firstName && !this.lastName) {
 	        	return '(no name entered)';
 	        }
 	        
-	        return (this.FirstName() || '') + ' ' + (this.LastName() || '');
+	        return (this.firstName() || '') + ' ' + (this.lastName() || '');
 	    }, this);
 	}
 	
 	Skater.prototype.remove = function () {
-	    this.registration.Skaters.remove(this);
+	    this.registration.skaters.remove(this);
 	};
 	/** End Skater **/
 	
 	
 	/** SkaterSession - represents a skater session **/
 	function SkaterSession(session, skater) {
-	    this.ID = session.ID;
-	    this.Name = session.Name;
-	    this.StartDate = session.StartDate;
-	    this.DayOfWeek = session.DayOfWeek;
-	    this.StartTime = session.StartTime;
-	    this.EndTime = session.EndTime;
-	    this.TotalCost = session.TotalCost;
-	    this.WeeksDuration = session.WeeksDuration;
-	    this.Description = session.Description;
+	    this.id = session.id;
+	    this.name = session.name;
+	    this.startDate = session.startDate;
+	    this.dayOfWeek = session.dayOfWeek;
+	    this.startTime = session.startTime;
+	    this.endTime = session.endTime;
+	    this.totalCost = session.totalCost;
+	    this.weeksDuration = session.weeksDuration;
+	    this.description = session.description;
 	    
-	    this.Skater = skater;
+	    this.skater = skater;
 	};
 	SkaterSession.prototype.remove = function() {
-	    this.Skater.Sessions.remove(this);
+	    this.skater.sessions.remove(this);
 	};
 	/** End SkaterSession **/
 	
