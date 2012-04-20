@@ -1,4 +1,4 @@
-package yfsc.entities.persistence;
+package yfsc.infrastructure;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;

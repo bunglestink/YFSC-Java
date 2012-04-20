@@ -9,10 +9,13 @@
     <property name="hibernate.connection.username">postgres</property>
     <property name="hibernate.connection.password">43kbeijK</property>
     <mapping class="yfsc.entities.Announcement" />
+	<mapping class="yfsc.entities.AnnualRegistration" />
+	<mapping class="yfsc.entities.AnnualRegistrationSkater" />
 	<mapping class="yfsc.entities.CalendarItem" />
 	<mapping class="yfsc.entities.Coach" />
 	<mapping class="yfsc.entities.RegistrationTerm" />
 	<mapping class="yfsc.entities.Role" />
+	<mapping class="yfsc.entities.SkatingSession" />
 	<mapping class="yfsc.entities.User" />
   </session-factory>
 </hibernate-configuration>

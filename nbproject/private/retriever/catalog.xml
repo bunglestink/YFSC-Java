@@ -10,4 +10,5 @@
     <system systemId="http://www.springframework.org/schema/tool/spring-tool-3.1.xsd" uri="www.springframework.org/schema/tool/spring-tool-3.1.xsd"/>
     <system systemId="http://www.springframework.org/schema/security/spring-security-3.0.xsd" uri="www.springframework.org/schema/security/spring-security-3.0.xsd"/>
     <system systemId="http://www.springframework.org/schema/security/spring-security-3.1.xsd" uri="www.springframework.org/schema/security/spring-security-3.1.xsd"/>
+    <system systemId="http://www.springframework.org/schema/mvc" uri="www.springframework.org/schema/mvc"/>
 </catalog>
