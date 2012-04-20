@@ -12,5 +12,7 @@
 	<mapping class="yfsc.entities.CalendarItem" />
 	<mapping class="yfsc.entities.Coach" />
 	<mapping class="yfsc.entities.RegistrationTerm" />
+	<mapping class="yfsc.entities.Role" />
+	<mapping class="yfsc.entities.User" />
   </session-factory>
 </hibernate-configuration>

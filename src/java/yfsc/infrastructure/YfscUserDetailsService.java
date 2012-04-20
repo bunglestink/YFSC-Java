@@ -22,7 +22,7 @@ public class YfscUserDetailsService implements UserDetailsService {
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
 
-		UserDetails userDetails = userService.getUserDetailsByUsername(username);
+		UserDetails userDetails = userService.get(username);
 		
 		if (userDetails == null) {
 			throw new UsernameNotFoundException("user not found");

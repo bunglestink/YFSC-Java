@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="template" uri="/WEB-INF/views/shared/template.tld" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,12 +37,13 @@
             </div>
 
             <div id="logindisplay">
-                <% //if(true/*Request.IsAuthenticated*/) { %>
+				<sec:authorize access="isAuthenticated()">
 				    <text>Welcome <b><%= "donkey" /*Context.User.Identity.Name*/ %></b>!
-				    [ <%--= Html.ActionLink("Member Area", "Index", "Membership") %> | <%= Html.ActionLink("Log Off", "LogOff", "Account") %> ]</text>
-				<% } else { %>
-				    [ <%= Html.ActionLink("Log On", "LogOn", "Account") %> ]
-				<% } --%>
+					[ <a href="<c:url value="/membership/index.do" />">Member Area</a> | <a href="<c:url value="/account/logOff.do" />">Log Off</a> ]</text>
+				</sec:authorize>
+				<sec:authorize access="!isAuthenticated()">
+				    [ <a href="<c:url value="/account/logOn.do" />">Log On</a> ]
+				</sec:authorize>
             </div>
 
             <div id="menucontainer">

@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	   xmlns:beans="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:security="http://www.springframework.org/schema/security"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-                           http://www.springframework.org/schema/security
+						   http://www.springframework.org/schema/security
                            http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
-    <security:global-method-security secured-annotations="enabled" />
+    <global-method-security secured-annotations="enabled" />
     
-	<security:http security="none" pattern="/account/log*" />
-	<security:http security="none" pattern="/content/**" />
-	<security:http security="none" pattern="/js/**" />
-	<security:http security="none" pattern="/home/**" />
-	<security:http security="none" pattern="/" />
-    <security:http auto-config="true">
-		<security:intercept-url pattern="/**" access="ROLE_user,ROLE_admin" />
+	<http security="none" pattern="/content/**" />
+	<http security="none" pattern="/js/**" />
+    <http use-expressions="true">
+		<intercept-url pattern="/account/*" access="permitAll"  />
+		<intercept-url pattern="/home/*" access="permitAll"  />
+		<intercept-url pattern="/*" access="permitAll"  />
+		<intercept-url pattern="/**" access="isAuthenticated()" />
+<!--login-processing-url="/account/logOn.do" -->
+        <form-login login-page="/account/logOn.do" 
+                    default-target-url="/membership/index.do" 
+                    authentication-failure-url="/account/logOnError.do" />
+        <logout invalidate-session="true" 
+				logout-url="/account/logOff.do" 
+				logout-success-url="/home/index.do" />
+    </http>
 
-        <security:form-login login-page="/account/logOn.do" 
-                             login-processing-url="/account/logOn.do" 
-                             default-target-url="/membership/index.do" 
-                             authentication-failure-url="/account/logOn.do" />
-        <security:logout logout-url="/account/logOff.do" logout-success-url="/home/index.do" />
-    </security:http>
-
-    
-	<bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
-		<property name="userDetailsService" ref="userDetailsService" />
-	</bean>
+    <authentication-manager alias="authenticationManager">
+		<authentication-provider user-service-ref="userDetailsService" />
+	</authentication-manager>
 	
-	<bean id="authenticationManager" class="org.springframework.security.authentication.ProviderManager">
-	  <property name="providers">
-		<list>
-		  <ref local="daoAuthenticationProvider" />
-		</list>
-	  </property>
-	</bean>
+	<!--<beans:bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+		<beans:property name="userDetailsService" ref="userDetailsService" />
+	</beans:bean>
 	
-	<security:authentication-manager>
-		<security:authentication-provider user-service-ref="userDetailsService" />
-	</security:authentication-manager>
-</beans>
+	<beans:bean id="authenticationManager" class="org.springframework.security.authentication.ProviderManager">
+	  <beans:property name="providers">
+		<beans:list>
+		  <beans:ref local="daoAuthenticationProvider" />
+		</beans:list>
+	  </beans:property>
+	</beans:bean>-->
+</beans:beans>

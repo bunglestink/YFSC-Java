@@ -1,16 +1,20 @@
 package yfsc.entities;
 
-import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name="Users")
-public class User implements Serializable {
+public class User implements UserDetails {
 	
 	@Id
 	@Column(name="Username")
@@ -19,8 +23,8 @@ public class User implements Serializable {
 	@Column(name="Password")
 	private String Password;
 	
-	//@Column(name="Email")
-	private String Email;
+	
+	/*private String Email;*/
 	
 	
 	@OneToMany(mappedBy="user")
@@ -29,7 +33,35 @@ public class User implements Serializable {
 	
 	
 	
+	@Override
+	public Collection<GrantedAuthority> getAuthorities() {
+		Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+		for (Role role : getRoles()) {
+			authorities.add(new SimpleGrantedAuthority(role.getRolename()));
+		}
+		return authorities;
+	}
 	
+	
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
+	
+	
+	@Override
 	public String getUsername() {
 		return username;
 	}
@@ -38,6 +70,7 @@ public class User implements Serializable {
 		this.username = username;
 	}
 
+	@Override
 	public String getPassword() {
 		return Password;
 	}
@@ -46,13 +79,13 @@ public class User implements Serializable {
 		this.Password = Password;
 	}
 
-	public String getEmail() {
+	/*public String getEmail() {
 		return Email;
 	}
 
 	public void setEmail(String Email) {
 		this.Email = Email;
-	}
+	}*/
 
 	public List<Role> getRoles() {
 		return roles;
