@@ -42,7 +42,7 @@ public class AccountController {
 	public String create(ModelMap model) {
 		model.addAttribute("user", new User());
 		
-		return "/account/create";
+		return "account/create";
 	}
 	
 	@RequestMapping(value="/createSubmit.do", method= RequestMethod.POST)
@@ -61,7 +61,7 @@ public class AccountController {
 		if (!errors.isEmpty()) {
 			model.addAttribute("user", user);
 			model.addAttribute("errors", errors);
-			return "/account/create";
+			return "account/create";
 		}
 		
 		
@@ -72,10 +72,11 @@ public class AccountController {
 			errors.add("Internal error creating user account.  Please try again later.");
 			model.addAttribute("user", user);
 			model.addAttribute("errors", errors);
-			return "/account/create";
+			return "account/create";
 		}
 		
 		userService.loginUser(user);
-		return "redirect:/";
+		model.addAttribute("message", "Your account has been successfully created!");		
+		return "membership/index";
 	}
 }

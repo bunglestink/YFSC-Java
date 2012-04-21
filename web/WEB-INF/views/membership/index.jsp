@@ -10,6 +10,12 @@
 				<a href="<c:url value="/membership/register.do" />">Signup for current Session now!</a>
 			</div>
 		</div>
+			<div>
+			<fieldset>
+				<legend>Registration History</legend>
+				<p>You have no past registrations.</p>
+			</fieldset>
+		</div>
 		<div>
 			<sec:authorize access="hasRole('Admin')">
 				<fieldset>

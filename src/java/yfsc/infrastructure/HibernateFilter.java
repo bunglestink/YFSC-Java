@@ -18,7 +18,10 @@ public class HibernateFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         Session session = sessionFactory.getCurrentSession();
-        session.beginTransaction();
+        if (session.getTransaction().isActive()) {
+			session.getTransaction().commit();
+		}
+		session.beginTransaction();
         
         chain.doFilter(request, response);
         

@@ -3,7 +3,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <template:insert template="/WEB-INF/views/shared/master.jsp">
     <template:put name="MainContent">
-		<h2>Calendar Items</h2>
+		<h2>Calendar Items for ${registrationTerm.termName}</h2>
+		<h5><a href="<c:url value="/registrationTerm/index.do" />">Back to registration terms</a></h5>
 		<h3><a href="<c:url value="create.do" />?id=${registrationTerm.id}">Create a New Calendar Item</a></h3>
 		<table>
 			<tr>

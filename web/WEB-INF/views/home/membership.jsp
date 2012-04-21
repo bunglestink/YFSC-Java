@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="template" uri="/WEB-INF/views/shared/template.tld" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <template:insert template="/WEB-INF/views/shared/master.jsp">
     <template:put name="MainContent">
 		<div class="formatted-content">
@@ -8,13 +9,14 @@
 				<h2>Join Online Now!</h2>
 				<p>The easiest way to join YFSC is by online electronic registraion.  If you already have an account, sign in and register!  If not, please take a minute and create your account today:</p>
 				<div class="join-now">
-					<%-- TODO: if (Request.IsAuthenticated) { --%>
-						<p><a href="<c:url value="/membership.index.do" />">Join Online in Member Area</a></p> 
-					<%-- } else { --%>
+					<sec:authorize access="isAuthenticated()">
+						<p><a href="<c:url value="/membership/index.do" />">Join Online in Member Area</a></p>
+					</sec:authorize>
+					<sec:authorize access="!isAuthenticated()">
 						<p><a href="<c:url value="/account/logOn.do" />">Login</a></p> 
 						<p>or</p>
 						<p><a href="<c:url value="/account/create.do" />">Create an Account</a></p>
-					<%-- } --%>
+					</sec:authorize>
 				</div>
 			</div>
 			<hr />
