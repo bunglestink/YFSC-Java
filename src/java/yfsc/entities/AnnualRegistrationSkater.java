@@ -7,11 +7,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name="RegistrationSkaters")
@@ -21,21 +22,26 @@ public class AnnualRegistrationSkater extends EntityObject {
 		sessions = new LinkedList<SkatingSession>();
 	}
 	
+	@NotEmpty
 	@Column(name="FirstName")
 	private String firstName;
 	
 	@Column(name="MiddleName")
 	private String middleName;
 
+	@NotEmpty
 	@Column(name="LastName")
 	private String lastName;
 
+	@NotEmpty
+	@Size(min=1, max=1)
 	@Column(name="Sex")
 	private String sex;
 
 	@Column(name="USCitizen")
 	private boolean usCitizen;
 
+	@NotNull
 	@Column(name="BirthDate")
 	@Temporal(TemporalType.DATE)
 	private Date birthDate;
@@ -43,6 +49,7 @@ public class AnnualRegistrationSkater extends EntityObject {
 	@Column(name="NewRegistrant")
 	private boolean newRegistrant;
 
+	@NotEmpty
 	@Column(name="Level")
 	private String level;
 

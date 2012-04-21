@@ -124,8 +124,8 @@
 											// if not true, model errors: 
 											var message = '<p>The following errors were encountered: </p></ul>';
 
-											for (var i = 0; i < result.length; i++) {
-												message += '<li>' + result[i] + '</li>';
+											for (var i = 0; i < result.model.errors.length; i++) {
+												message += '<li>' + result.model.errors[i] + '</li>';
 											}
 											UTIL.alert(message);
 										},

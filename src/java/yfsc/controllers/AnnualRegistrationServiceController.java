@@ -2,12 +2,20 @@ package yfsc.controllers;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 import javax.inject.Inject;
+import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.portlet.ModelAndView;
 import yfsc.businesslogic.RegistrationService;
 import yfsc.entities.AnnualRegistration;
 
@@ -16,22 +24,38 @@ import yfsc.entities.AnnualRegistration;
 public class AnnualRegistrationServiceController {
 	
 	@Inject private RegistrationService registrationService;
-	
+	@Inject private ModelAndView jsonModelAndView;
 	
 	
 	@RequestMapping("/new.do")
-	public @ResponseBody AnnualRegistration newRegistration() {
+	@ResponseBody
+	public AnnualRegistration newRegistration() {
 	
-		return new AnnualRegistration();
+		return registrationService.createNewRegistration();
 	}
 	
 	
 	@RequestMapping("/create.do")
-	public @ResponseBody Object create(@RequestBody AnnualRegistration registration) {
-		// validate model
+	@ResponseBody
+	public Object create(@Valid @RequestBody AnnualRegistration registration) {
 		
-		// return JSON of errors, or true on success
-		return false;
+ 		registrationService.submitRegistration(registration);
+		return true;
+	}
+	
+	
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	@ResponseBody
+	public ModelAndView handleMethodArgumentNotValidException(MethodArgumentNotValidException errors) {
+		List<String> errorList = new LinkedList<String>();
+		BindingResult bindingResult = errors.getBindingResult();
+		
+		for (FieldError error : bindingResult.getFieldErrors()) {
+			errorList.add(error.getField() + " " + error.getDefaultMessage());
+		}
+		
+		jsonModelAndView.addObject("errors", errorList);
+		return jsonModelAndView;
 	}
 	
 	

@@ -3,6 +3,8 @@ package yfsc.entities;
 import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.*;
+import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name="Registration")
@@ -12,33 +14,42 @@ public class AnnualRegistration extends EntityObject {
 		skaters = new LinkedList<AnnualRegistrationSkater>();
 	}
     
+	@NotEmpty
 	@Column(name="FirstName")
 	private String firstName;
 
 	@Column(name="MiddleName")
 	private String middleName;
 
+	@NotEmpty
 	@Column(name="LastName")
 	private String lastName;
 
+	@NotEmpty
 	@Column(name="Street")
 	private String street;
 
+	@NotEmpty
 	@Column(name="City")
 	private String city;
 
+	@NotEmpty
+	@Size(min=2, max=2)
 	@Column(name="State")
 	private String state;
 
+	@NotEmpty
 	@Column(name="Zip")
 	private String zip;
 
+	@NotEmpty
 	@Column(name="HomePhone")
 	private String homePhone;
 	
 	@Column(name="WorkPhone")
 	private String workPhone;
 	
+	@NotEmpty
 	@Column(name="Email")
 	private String email;
 

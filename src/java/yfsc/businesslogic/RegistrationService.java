@@ -16,6 +16,9 @@ public class RegistrationService {
 	}
 	
 	
+	public AnnualRegistration createNewRegistration() {
+		return new AnnualRegistration();
+	}
 	
 	public void submitRegistration(AnnualRegistration registration) {
 		throw new NotImplementedException();

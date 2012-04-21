@@ -18,7 +18,16 @@
     <bean id="hibernateFilter" class="yfsc.infrastructure.HibernateFilter">
         <constructor-arg index="0" ref="sessionFactory" />
     </bean>
+	
+	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />
     
+	<bean id="jsonModelAndView" class="org.springframework.web.portlet.ModelAndView">
+		<constructor-arg index="0" value="jsonView" />
+	</bean>
+	
+	<!--<bean id="annualRegistrationServiceController" class="yfsc.controllers.AnnualRegistrationServiceController">
+		<property name="jsonView" value="jsonView" />
+	</bean>-->
 	
 	<bean id="announcementService" class="yfsc.entities.persistence.AnnouncementService">
         <constructor-arg index="0" ref="sessionFactory" />
