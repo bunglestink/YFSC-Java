@@ -3,21 +3,32 @@ package yfsc.entities.persistence;
 import java.util.Collections;
 import java.util.List;
 import org.hibernate.Query;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Service;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import yfsc.entities.Role;
 import yfsc.entities.User;
 
 @Service
 public class UserService implements IPersistenceService<User> {
 
-    SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
+	private SecurityContext securityContext;
+	
 	private String rolePrefix;
-    
-    public UserService(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
+	private String userRolename;
+	private String adminRolename;
+	
+	
+	public UserService(SessionFactory sessionFactory, SecurityContext securityContext) {
+		this.sessionFactory = sessionFactory;
+		this.securityContext = securityContext;
+	}
+	
+	
     
     @Override
     public List<User> list() {
@@ -44,15 +55,43 @@ public class UserService implements IPersistenceService<User> {
         sessionFactory.getCurrentSession().delete(user);
     }
 	
-	
-	
-	
-	
-	public String getRolePrefix() {
-		return rolePrefix;
+	public boolean isUsernameAvailable(String username) {
+		return sessionFactory.getCurrentSession().get(User.class, username) == null;
 	}
-
+	
+	
+	public void createUserAccount(User user) throws Exception {
+		if (!isUsernameAvailable(user.getUsername())) {
+			throw new Exception("Username not avaialable.");
+		}
+		
+		saveOrUpdate(user);
+		grantRole(user, userRolename);
+	}
+	
+	public void grantRole(User user, String rolename) {
+		Role role = new Role();
+		role.setUser(user);
+		role.setRolename(rolename);
+		sessionFactory.getCurrentSession().saveOrUpdate(role);
+	}
+	
+	
+	
+	public void loginUser(User user) {
+		Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+		securityContext.setAuthentication(authentication);
+	}
+	
+	
+	
 	public void setRolePrefix(String rolePrefix) {
 		this.rolePrefix = rolePrefix;
+	}
+	public void setUserRolename(String rolename) {
+		this.userRolename = rolename;
+	}
+	public void setAdminRolename(String rolename) {
+		this.adminRolename = rolename;
 	}
 }

@@ -38,11 +38,11 @@
 
             <div id="logindisplay">
 				<sec:authorize access="isAuthenticated()">
-				    <text>Welcome <b><%= "donkey" /*Context.User.Identity.Name*/ %></b>!
+					<text>Welcome <b><sec:authentication property="principal.username" /></b>!
 					[ <a href="<c:url value="/membership/index.do" />">Member Area</a> | <a href="<c:url value="/account/logOff.do" />">Log Off</a> ]</text>
 				</sec:authorize>
 				<sec:authorize access="!isAuthenticated()">
-				    [ <a href="<c:url value="/account/logOn.do" />">Log On</a> ]
+				    [ <a href="<c:url value="/account/logOn.do" />">Log On</a> ] | [ <a href="<c:url value="/account/create.do" />">Create Account</a> ]
 				</sec:authorize>
             </div>
 

@@ -2,12 +2,17 @@ package yfsc.entities;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,15 +21,25 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Table(name="Users")
 public class User implements UserDetails {
 	
+	public User() {
+		this.roles = new LinkedList<Role>();
+	}
+	
 	@Id
+	@NotEmpty
+	@Size(min=3, max=100)
 	@Column(name="Username")
 	private String username;
 	
+	@NotEmpty
+	@Size(min=6, max=100)
 	@Column(name="Password")
-	private String Password;
+	private String password;
 	
 	
-	/*private String Email;*/
+	@NotEmpty
+	@Column(name="Email")
+	private String email;
 	
 	
 	@OneToMany(mappedBy="user")
@@ -72,20 +87,20 @@ public class User implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		return Password;
+		return password;
 	}
 
 	public void setPassword(String Password) {
-		this.Password = Password;
+		this.password = Password;
 	}
 
-	/*public String getEmail() {
-		return Email;
+	public String getEmail() {
+		return email;
 	}
 
 	public void setEmail(String Email) {
-		this.Email = Email;
-	}*/
+		this.email = Email;
+	}
 
 	public List<Role> getRoles() {
 		return roles;

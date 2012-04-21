@@ -37,4 +37,9 @@ public class Role extends EntityObject {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
+	@Column(name="Username")
+	public String getUsername() {
+		return user.getUsername();
+	}
 }

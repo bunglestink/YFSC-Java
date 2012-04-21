@@ -14,6 +14,13 @@
         class="yfsc.infrastructure.HibernateUtil" 
         factory-method="getSessionFactory" 
         scope="singleton" />
+		
+	<bean id="securityContext"
+		class="org.springframework.security.core.context.SecurityContextHolder"
+		factory-method="getContext"
+		scope="request">
+			<aop:scoped-proxy />
+	</bean>
     
     <bean id="hibernateFilter" class="yfsc.infrastructure.HibernateFilter">
         <constructor-arg index="0" ref="sessionFactory" />
@@ -51,7 +58,10 @@
 	
 	<bean id="userService" class="yfsc.entities.persistence.UserService">
 		<constructor-arg index="0" ref="sessionFactory" />
-		<property name="rolePrefix" value="ROLE_" />
+		<constructor-arg index="1" ref="securityContext" />
+		<property name="rolePrefix" value="" />
+		<property name="userRolename" value="User" />
+		<property name="adminRolename" value="Admin" />
 	</bean>
 	
 	<bean id="userDetailsService" class="yfsc.infrastructure.YfscUserDetailsService">
