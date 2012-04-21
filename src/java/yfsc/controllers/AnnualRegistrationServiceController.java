@@ -1,6 +1,7 @@
 package yfsc.controllers;
 
 import java.math.BigDecimal;
+import java.security.Principal;
 import java.text.NumberFormat;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,12 +19,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.portlet.ModelAndView;
 import yfsc.businesslogic.RegistrationService;
 import yfsc.entities.AnnualRegistration;
+import yfsc.entities.User;
+import yfsc.entities.persistence.UserService;
 
 @Controller
 @RequestMapping("/annualRegistrationService")
 public class AnnualRegistrationServiceController {
 	
 	@Inject private RegistrationService registrationService;
+	@Inject private UserService userService;
 	@Inject private ModelAndView jsonModelAndView;
 	
 	
@@ -37,9 +41,10 @@ public class AnnualRegistrationServiceController {
 	
 	@RequestMapping("/create.do")
 	@ResponseBody
-	public Object create(@Valid @RequestBody AnnualRegistration registration) {
+	public Object create(@Valid @RequestBody AnnualRegistration registration, Principal principal) {
 		
- 		registrationService.submitRegistration(registration);
+		User user = userService.get(principal.getName());
+ 		registrationService.submitRegistration(registration, user);
 		return true;
 	}
 	

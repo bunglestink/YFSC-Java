@@ -228,6 +228,7 @@ table td
   padding: 5px;   
   border: solid 1px #e8eef4;
 }
+table .currency {text-align: right;}
 
 table th
 {
@@ -420,3 +421,6 @@ div#title
 	display: block;
 	margin: 25px 0 25px 0;
 }
+.invoice-header label { width: 200px; display: inline-block;}
+.invoice-header span { width: 100px; display: inline-block; text-align: right;}
+.invoice-header .not-paid-in-full { color: #f00; }

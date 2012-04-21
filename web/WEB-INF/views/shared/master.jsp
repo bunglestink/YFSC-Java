@@ -9,6 +9,7 @@
             <title>Yale Figure Skating</title>
     </template:get>		
     <link href="<c:url value="/content/Site.css" />" rel="stylesheet" type="text/css" />
+	<link href="<c:url value="/content/Site-print.css" />" rel="stylesheet" type="text/css" media="print" />
     <link href="<c:url value="/content/ui-lightness/jquery-ui-1.8.16.custom.css" />" rel="stylesheet" type="text/css" />
     <script src="<c:url value="/js/jquery-1.4.4.js" />" type="text/javascript"></script>
     <script src="<c:url value="/js/jquery-ui.min.js" />" type="text/javascript"></script>

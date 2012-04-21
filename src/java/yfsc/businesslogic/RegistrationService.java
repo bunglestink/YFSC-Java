@@ -1,28 +1,59 @@
 package yfsc.businesslogic;
 
 import java.math.BigDecimal;
+import java.util.LinkedList;
+import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Service;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import yfsc.entities.AnnualRegistration;
 import yfsc.entities.AnnualRegistrationSkater;
 import yfsc.entities.SkatingSession;
+import yfsc.entities.User;
+import yfsc.entities.persistence.SkatingSessionService;
 
 
 @Service
 public class RegistrationService {
 	
-	public RegistrationService() {
-		
+	private SessionFactory sessionFactory;
+	private SkatingSessionService skatingSessionService;
+	
+	public RegistrationService(SessionFactory sessionFactory, SkatingSessionService skatingSessionService) {
+		this.sessionFactory = sessionFactory;
+		this.skatingSessionService = skatingSessionService;
 	}
+	
 	
 	
 	public AnnualRegistration createNewRegistration() {
 		return new AnnualRegistration();
 	}
 	
-	public void submitRegistration(AnnualRegistration registration) {
-		throw new NotImplementedException();
+	public void submitRegistration(AnnualRegistration registration, User user) {
+		Session session = sessionFactory.getCurrentSession();
+		
+		registration.setUser(user);
+		
+		// swap JSON skating sessions for actual entities
+		for (AnnualRegistrationSkater skater : registration.getSkaters()) {
+			List<SkatingSession> sessions = skater.getSessions();
+			List<SkatingSession> sessionEntities = new LinkedList<SkatingSession>();
+			skater.setSessions(sessionEntities);
+			
+			for (SkatingSession skatingSession : sessions) {
+				sessionEntities.add(skatingSessionService.get(skatingSession.getId()));
+			}
+		}
+		
+		// save registration and skaters
+		session.save(registration);
+		for (AnnualRegistrationSkater skater : registration.getSkaters()) {
+			session.save(skater);
+		}
 	}
+	
+	
 	
 	public BigDecimal getRegistrationCost(AnnualRegistration registration) {
 		BigDecimal membershipCost = getMembershipCost(registration);

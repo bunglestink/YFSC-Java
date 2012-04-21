@@ -7,7 +7,7 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name="Registration")
+@Table(name="Registrations")
 public class AnnualRegistration extends EntityObject {
 
 	public AnnualRegistration() {
@@ -75,11 +75,16 @@ public class AnnualRegistration extends EntityObject {
 	@JoinColumn(name="RegistrationTermID")
 	private RegistrationTerm registrationTerm;
 	
+	@ManyToOne
+	@JoinColumn(name="Username")
+	private User user;
+	
 	@OneToMany
 	@JoinColumn(name="RegistrationID")
 	private List<AnnualRegistrationSkater> skaters;
 
-	
+	@OneToOne(mappedBy="registration")
+	private Invoice invoice;
 	
 	
 	
@@ -226,5 +231,21 @@ public class AnnualRegistration extends EntityObject {
 
 	public void setSkaters(List<AnnualRegistrationSkater> skaters) {
 		this.skaters = skaters;
+	}
+	
+	public User getUser() {
+		return user;
+	}
+	
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Invoice getInvoice() {
+		return invoice;
+	}
+
+	public void setInvoice(Invoice invoice) {
+		this.invoice = invoice;
 	}
 }

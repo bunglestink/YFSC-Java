@@ -10,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,6 +21,7 @@ public class User implements UserDetails {
 	
 	public User() {
 		this.roles = new LinkedList<Role>();
+		this.registrations = new LinkedList<AnnualRegistration>();
 	}
 	
 	@Id
@@ -45,6 +44,8 @@ public class User implements UserDetails {
 	@OneToMany(mappedBy="user")
 	private List<Role> roles;
 
+	@OneToMany(mappedBy="user")
+	private List<AnnualRegistration> registrations;
 	
 	
 	
@@ -108,5 +109,13 @@ public class User implements UserDetails {
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+	
+	public List<AnnualRegistration> getRegistrations() {
+		return registrations;
+	}
+
+	public void setRegistrations(List<AnnualRegistration> registrations) {
+		this.registrations = registrations;
 	}
 }

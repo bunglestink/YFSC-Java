@@ -50,9 +50,20 @@
         <constructor-arg index="0" ref="sessionFactory" />
     </bean>
 	
-	<bean id="registrationService" class="yfsc.businesslogic.RegistrationService" />
+	<bean id="invoiceService" class="yfsc.entities.persistence.InvoiceService">
+        <constructor-arg index="0" ref="sessionFactory" />
+    </bean>
+	
+	<bean id="registrationService" class="yfsc.businesslogic.RegistrationService">
+		<constructor-arg index="0" ref="sessionFactory" />
+		<constructor-arg index="1" ref="skatingSessionService" />
+	</bean>
 	
     <bean id="registrationTermService" class="yfsc.entities.persistence.RegistrationTermService">
+        <constructor-arg index="0" ref="sessionFactory" />
+    </bean>
+	
+	<bean id="skatingSessionService" class="yfsc.entities.persistence.SkatingSessionService">
         <constructor-arg index="0" ref="sessionFactory" />
     </bean>
 	
