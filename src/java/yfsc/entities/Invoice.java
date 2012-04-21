@@ -19,15 +19,15 @@ public class Invoice extends EntityObject {
 	@Temporal(javax.persistence.TemporalType.DATE)
     private Date invoiceDate;
 	
-	@Column(name="AmountPaid")
-	private BigDecimal amountPaid;
-	
 	@OneToOne
 	@JoinColumn(name="RegistrationID")
 	private AnnualRegistration registration;
 	
 	@OneToMany(mappedBy="invoice")
 	private List<InvoiceItem> invoiceItems;
+	
+	@OneToMany(mappedBy="invoice")
+	private List<InvoicePayment> invoicePayments;
 	
 	
 	private static SimpleDateFormat dateFormat;
@@ -50,9 +50,16 @@ public class Invoice extends EntityObject {
 		}
 		return totalCost;
 	}
+	public BigDecimal getAmountPaid() {
+		BigDecimal amountPaid = new BigDecimal(0);
+		for (InvoicePayment payment : invoicePayments) {
+			amountPaid = amountPaid.add(payment.getAmount());
+		}
+		return amountPaid;
+	}
 	
 	public BigDecimal getOutstandingBalance() {
-		return getTotalCost().subtract(amountPaid);
+		return getTotalCost().subtract(getAmountPaid());
 	}
 	
 	
@@ -69,14 +76,6 @@ public class Invoice extends EntityObject {
 		this.invoiceDate = invoiceDate;
 	}
 
-	public BigDecimal getAmountPaid() {
-		return amountPaid;
-	}
-
-	public void setAmountPaid(BigDecimal amountPaid) {
-		this.amountPaid = amountPaid;
-	}
-
 	public AnnualRegistration getRegistration() {
 		return registration;
 	}
@@ -91,5 +90,13 @@ public class Invoice extends EntityObject {
 	
 	public void setInvoiceItems(List<InvoiceItem> invoiceItems) {
 		this.invoiceItems = invoiceItems;
+	}
+	
+	public List<InvoicePayment> getInvoicePayments() {
+		return invoicePayments;
+	}
+	
+	public void setInvoicejPayments(List<InvoicePayment> invoicePayments) {
+		this.invoicePayments = invoicePayments;
 	}
 }

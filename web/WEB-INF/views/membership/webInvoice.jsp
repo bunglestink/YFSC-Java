@@ -37,7 +37,7 @@
 				<label>Outstanding Balance: </label><span class="<c:if test="${!invoice.paidInFull}">not-paid-in-full</c:if>">$${invoice.outstandingBalance}</span>
 			</div>
 		</div>
-			<div>
+		<div>
 			<fieldset>
 				<legend>Invoice Items</legend>
 				<br />
@@ -57,6 +57,32 @@
 							<td class="currency">$${item.unitCost}</td>
 							<td>${item.quantity}</td>
 							<td class="currency">$${item.totalCost}</td>
+						</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</fieldset>
+		</div>
+		<div>
+			<fieldset>
+				<legend>Payments</legend>
+				<br />
+				<table>
+					<thead>
+						<tr>
+							<th>Date Received</th>
+							<th>Type</th>
+							<th>Notes</th>
+							<th>Amount</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${invoice.invoicePayments}" var="payment">
+						<tr>
+							<td>${payment.dateReceivedString}</td>
+							<td>${payment.type}</td>
+							<td>${payment.description}</td>
+							<td class="currency">$${payment.amount}</td>
 						</tr>
 						</c:forEach>
 					</tbody>

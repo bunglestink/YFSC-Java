@@ -15,6 +15,7 @@
 	<mapping class="yfsc.entities.Coach" />
 	<mapping class="yfsc.entities.Invoice" />
 	<mapping class="yfsc.entities.InvoiceItem" />
+	<mapping class="yfsc.entities.InvoicePayment" />
 	<mapping class="yfsc.entities.RegistrationTerm" />
 	<mapping class="yfsc.entities.Role" />
 	<mapping class="yfsc.entities.SkatingSession" />
