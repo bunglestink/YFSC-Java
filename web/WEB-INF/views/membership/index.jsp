@@ -54,6 +54,7 @@
 					<ul>
 						<li><a href="<c:url value="/announcement/index.do" />">Announcements</a></li>
 						<li><a href="<c:url value="/coach/index.do" />">Coach</a></li>
+						<li><a href="<c:url value="/invoice/index.do" />">Invoices</a></li>
 						<li><a href="<c:url value="/registrationTerm/index.do" />">Registration Terms</a></li>
 					</ul>
 				</fieldset>

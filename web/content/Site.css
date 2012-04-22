@@ -424,3 +424,5 @@ div#title
 .invoice-header label { width: 200px; display: inline-block;}
 .invoice-header span { width: 100px; display: inline-block; text-align: right;}
 .invoice-header .not-paid-in-full { color: #f00; }
+.dialog {display:none;}
+.dialog label {width: 100px; display: inline-block;}
