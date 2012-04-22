@@ -70,6 +70,7 @@ public class RegistrationService {
 		items.addAll(getHomeClubCostItems(registration));
 		items.addAll(getSessionCostItems(registration));
 		
+		registration.setInvoice(invoice);
 		invoiceService.saveOrUpdate(invoice);
 		for (InvoiceItem item : items) {
 			item.setInvoice(invoice);

@@ -116,9 +116,14 @@
 										type: 'POST',
 										contentType: 'application/json',
 										success: function (result) {
-											if (result === true) {
-												UTIL.alert('success!');
-												return;
+											if (result) {
+												var id = parseInt(result, 10);
+												if (id) {
+													// prevent leave page warning, then redirect
+													window.onbeforeunload = function () {};
+													window.location = settings['submit-success-url'] + '&id=' + id.toString();
+													return;
+												}
 											}
 
 											// if not true, model errors: 
@@ -175,7 +180,8 @@
 			 data-current-sessions-url="<c:url value="/skatingSessionsService/current.do" />"
 			data-registration-base-url="<c:url value="/annualRegistrationService/new.do" />"
 			data-create-registration-url="<c:url value="/annualRegistrationService/create.do" />"
-			data-get-registration-cost-url="<c:url value="/annualRegistrationService/getCost.do" />">
+			data-get-registration-cost-url="<c:url value="/annualRegistrationService/getCost.do" />"
+			data-submit-success-url="<c:url value="/membership/invoice.do?status=success" />">
 			<div id="registration-navigation">
 				<ul>
 					<li><a href="#family">Family</a> </li>

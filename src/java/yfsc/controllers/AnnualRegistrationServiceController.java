@@ -45,7 +45,7 @@ public class AnnualRegistrationServiceController {
 		
 		User user = userService.get(principal.getName());
  		registrationService.submitRegistration(registration, user);
-		return true;
+		return registration.getInvoice().getId();
 	}
 	
 	

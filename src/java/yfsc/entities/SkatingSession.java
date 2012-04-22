@@ -11,7 +11,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name="SkatingSessions")
 public class SkatingSession extends EntityObject {
-		
+	
 	@Column(name="Name")
 	private String name;
 	

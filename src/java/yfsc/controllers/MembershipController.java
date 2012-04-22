@@ -25,13 +25,21 @@ public class MembershipController {
 	}
 	
 	@RequestMapping("/invoice.do")
-	public String invoice(@RequestParam(value="id") int id, @RequestParam(value="format", required=false) String format, ModelMap model) {
+	public String invoice(
+			@RequestParam(value="id") int id, 
+			@RequestParam(value="format", required=false) String format,
+			@RequestParam(value="status", required=false) String status,
+			ModelMap model) {
+		
 		Invoice invoice = invoiceService.get(id);
 		if (invoice == null) {
 			return "membership/index";
 		}
 		
 		model.addAttribute("invoice", invoice);
+		if (status != null && status.equals("success")) {
+			model.addAttribute("message", "Your registration has been successfully submited!  Please print this invoice and submit with payment.");
+		}
 		
 		if (format != null && format.equals("csv")) {
 			return "membership/csvInvoice";
