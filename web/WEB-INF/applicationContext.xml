@@ -60,7 +60,8 @@
 	
 	<bean id="registrationService" class="yfsc.businesslogic.RegistrationService">
 		<constructor-arg index="0" ref="sessionFactory" />
-		<constructor-arg index="1" ref="skatingSessionService" />
+		<constructor-arg index="1" ref="invoiceService" />
+		<constructor-arg index="2" ref="skatingSessionService" />
 	</bean>
 	
     <bean id="registrationTermService" class="yfsc.entities.persistence.RegistrationTermService">

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -54,7 +55,9 @@ public class AnnualRegistrationSkater extends EntityObject {
 	private String level;
 
 	@ManyToMany
-	@JoinColumn(table="SkatingSessionSkaters", name="RegistrationSkaterID")
+	@JoinTable(name="SkatingSessionSkaters",
+			joinColumns={@JoinColumn(name="RegistrationSkaterID")},
+			inverseJoinColumns={@JoinColumn(name="SkatingSessionID")})
 	private List<SkatingSession> sessions;
 	
 	

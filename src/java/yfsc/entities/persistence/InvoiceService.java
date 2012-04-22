@@ -1,10 +1,12 @@
 package yfsc.entities.persistence;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Service;
+import yfsc.entities.AnnualRegistration;
 import yfsc.entities.Invoice;
 
 @Service
@@ -15,6 +17,13 @@ public class InvoiceService implements IPersistenceService<Invoice> {
     public InvoiceService(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
+	
+	public Invoice create(AnnualRegistration registration) {
+		Invoice invoice = new Invoice();
+		invoice.setInvoiceDate(new Date());
+		invoice.setRegistration(registration);
+		return invoice;
+	}
     
     @Override
     public List<Invoice> list() {

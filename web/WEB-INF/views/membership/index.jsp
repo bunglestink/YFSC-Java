@@ -18,20 +18,20 @@
 					<p>You have no past registrations.</p>
 				</c:if>
 				<c:if test="${!user.registrations.isEmpty()}">
-					<c:forEach items="${user.registrations}" var="registration">
-						<table>
-							<thead>
-								<tr>
-									<th>Registration Term</th>
-									<th>Registration Date</th>
-									<th>Number of Skaters</th>
-									<th>Total Cost</th>
-									<th>Amount Paid</th>
-									<th>View Invoice</th>
-									<th>Download</th>
-								</tr>
-							</thead>
-							<tbody>
+					<table>
+						<thead>
+							<tr>
+								<th>Registration Term</th>
+								<th>Registration Date</th>
+								<th>Number of Skaters</th>
+								<th>Total Cost</th>
+								<th>Amount Paid</th>
+								<th>View Invoice</th>
+								<th>Download</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${user.registrations}" var="registration">
 								<tr>
 									<td>${registration.registrationTerm.termName}</td>
 									<td>${registration.invoice.invoiceDateString}</td>
@@ -41,9 +41,9 @@
 									<td><a href="<c:url value="invoice.do?id=${registration.invoice.id}" />">View</a></td>
 									<td><a href="<c:url value="invoice.do?id=${registration.invoice.id}&format=csv" />">csv file</a></td>
 								</tr>
-							</tbody>
-						</table>
-					</c:forEach>
+							</c:forEach>
+						</tbody>
+					</table>
 				</c:if>
 			</fieldset>
 		</div>

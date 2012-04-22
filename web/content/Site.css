@@ -380,9 +380,9 @@ div#title
     width: auto; 
 }
 
-#registration-skaters input, #registration-skaters label { width: 100px; }
+#registration-skaters input, #registration-skaters label, #registration-skaters select { width: 100px; }
 #registration-skaters label {margin-right: 5px; text-align:center;}
-#registration-skaters .registration-skaters-sex { width: 30px; }
+#registration-skaters .registration-skaters-sex { width: 40px; }
 #registration-skaters .registration-skaters-us-citizen { width: 50px; }
 
 #registration-sessions>ul, #registration-skaters ul {list-style: none; padding-left: 0px;  }

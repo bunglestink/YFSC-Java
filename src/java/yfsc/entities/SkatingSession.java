@@ -37,7 +37,6 @@ public class SkatingSession extends EntityObject {
 	@Column(name="Description")
 	private String description;
 
-
 	
 	
 	
