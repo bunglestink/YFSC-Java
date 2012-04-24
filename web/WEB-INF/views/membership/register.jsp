@@ -309,7 +309,7 @@
 								<input data-bind="value: firstName" />
 								<input data-bind="value: middleName" />
 								<input data-bind="value: lastName" />
-								<select data-bind="value: sex, options: $parent.sexOptions" class="registration-skaters-sex" />
+								<select data-bind="value: sex, options: $parent.sexOptions" class="registration-skaters-sex"></select>
 								<input data-bind="checked: usCitizen" type="checkbox" class="registration-skaters-us-citizen" />
 								<input data-bind="value: birthDate" class="datefield" />
 								<input data-bind="checked: newRegistrant" type="checkbox" />

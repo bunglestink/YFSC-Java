@@ -84,7 +84,7 @@
 							var payment = {
 								amount: parseInt(addDialog.find('#amount').val(), 10),
 								type: addDialog.find('#type').val(),
-								description: addDialog.find('#type').val(),
+								description: addDialog.find('#description').val(),
 								invoice: {id: $this.data('invoice-id')}
 							};
 							

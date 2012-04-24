@@ -132,7 +132,7 @@ public class RegistrationService {
 				InvoiceItem addItem = new InvoiceItem();
 				addItem.setDescription("Skater Memebership: additional non-Yale affiliated");
 				addItem.setQuantity(skaterCount - 1);
-				addItem.setUnitCost(new BigDecimal(30));
+				addItem.setUnitCost(new BigDecimal(20));
 				items.add(addItem);
 			}
 		}

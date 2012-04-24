@@ -53,11 +53,11 @@
                     <li><a href="<c:url value="/home/index.do" />">Home</a></li>
                     <li><a href="<c:url value="/home/program.do" />">Program</a></li>
                     <li><a href="<c:url value="/home/calendar.do" />">Calendar</a></li>
-                    <!--<li><%-- Html.ActionLink("Coaches", "ClubCoaches", "Home", new { id=(int?)null}, null) --%></li>-->
+					<li><a href="<c:url value="/home/clubCoaches.do" />">Coaches</a></li>
                     <li><a href="<c:url value="/home/membership.do" />">Membership</a></li>
                     <li><a href="<c:url value="/home/brochure.do" />">Brochure</a></li>
                     <li><a href="<c:url value="/home/byLaws.do" />">ByLaws</a></li>
-                    <li><a href="<c:url value="/home/contactInformation.do" />">Contact Info</a></li>
+                    <li><a href="<c:url value="/home/contactInformation.do" />">Contact</a></li>
                 </ul>
 
             </div>
