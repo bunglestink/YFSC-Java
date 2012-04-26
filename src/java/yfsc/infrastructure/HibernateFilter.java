@@ -2,30 +2,37 @@ package yfsc.infrastructure;
 
 import java.io.IOException;
 import javax.servlet.*;
+import java.util.logging.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class HibernateFilter implements Filter {
     
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
+	private final Logger logger;
     
     @Autowired
-    public HibernateFilter(SessionFactory sessionFactory) {
+    public HibernateFilter(SessionFactory sessionFactory, Logger logger) {
         this.sessionFactory = sessionFactory;
+		this.logger = logger;
     }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         Session session = sessionFactory.getCurrentSession();
-        if (session.getTransaction().isActive()) {
-			session.getTransaction().commit();
-		}
+		
 		session.beginTransaction();
         
         chain.doFilter(request, response);
         
-        session.getTransaction().commit();
+		try {
+			session.getTransaction().commit();
+		}
+		catch (Exception e) {
+			logger.warning("Rolling back Hibernate transaction");
+			session.getTransaction().rollback();
+		}
     }
 
     @Override

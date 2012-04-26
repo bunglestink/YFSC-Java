@@ -14,6 +14,13 @@
         class="yfsc.infrastructure.HibernateUtil" 
         factory-method="getSessionFactory" 
         scope="singleton" />
+	
+	<bean id="logger"
+		class="java.util.logging.Logger"
+		factory-method="getLogger"
+		scope="singleton">
+			<constructor-arg index="0" value="yfsc" /> 
+	</bean>
 		
 	<bean id="securityContext"
 		class="org.springframework.security.core.context.SecurityContextHolder"
@@ -24,6 +31,7 @@
     
     <bean id="hibernateFilter" class="yfsc.infrastructure.HibernateFilter">
         <constructor-arg index="0" ref="sessionFactory" />
+		<constructor-arg index="1" ref="logger" />
     </bean>
 	
 	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />
