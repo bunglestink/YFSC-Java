@@ -3,6 +3,35 @@
 <%@taglib prefix="template" uri="/WEB-INF/views/shared/template.tld" %>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <template:insert template="/WEB-INF/views/shared/master.jsp">
+	<template:put name="AdditionalScripts">
+		<script type="text/javascript">
+		$(function () {
+			$('#backup-action').click(function () {
+				
+				$('#backup-confirm').dialog({
+					autoOpen: true,
+					modal: true,
+					resizable: false,
+					title: 'Confirmation',
+					buttons: {
+						'Yes, perform backup now': function () {
+							window.location = $('#backup-action').attr('href');
+							$(this).dialog('close');
+						},
+						'Cancel': function() {
+							$(this).dialog('close');
+						}
+					},
+					close: function () {
+						$(this).dialog('destroy');
+					}
+				});
+				
+				return false;
+			});
+		});
+		</script>
+	</template:put>
     <template:put name="MainContent">
 		<h2>Membership</h2>
 		<div class="formatted-content">
@@ -58,6 +87,13 @@
 						<li><a href="<c:url value="/registrationTerm/index.do" />">Registration Terms</a></li>
 					</ul>
 				</fieldset>
+				<fieldset>
+					<legend>Maintenance</legend>
+					<ul>
+						<li><a id="backup-action" href="<c:url value="/adminServices/backup.do" />">Backup System</a></li>
+					</ul>
+				</fieldset>
+				<div id="backup-confirm" class="dialog">This action will create a backup of the entire system.  This can be used for archival purposes, and can be restored by an admin.  Are you sure you wish to backup the system?</div>
 			</sec:authorize>
 		</div>
 	</template:put>

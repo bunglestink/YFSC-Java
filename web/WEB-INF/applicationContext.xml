@@ -66,6 +66,12 @@
         <constructor-arg index="0" ref="sessionFactory" />
     </bean>
 	
+	<bean id="pgdumpBackupService" class="yfsc.businesslogic.BackupService">
+		<constructor-arg index="0" ref="logger" />
+		<constructor-arg index="1" value="C:\Users\Kirk\Documents\NetBeansProjects\YaleFigureSkatingClub\build\web\WEB-INF\pgdumpBackup.bat" />
+		<constructor-arg index="2" value="4" />
+	</bean>
+	
 	<bean id="registrationService" class="yfsc.businesslogic.RegistrationService">
 		<constructor-arg index="0" ref="sessionFactory" />
 		<constructor-arg index="1" ref="invoiceService" />
