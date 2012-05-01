@@ -13,6 +13,7 @@
 					autoOpen: true,
 					modal: true,
 					title: 'Confirmation',
+					resizable: false,
 					buttons: {
 						'Yes, change current': function () {
 							$.ajax({
@@ -57,6 +58,7 @@
                 <th>StartDate</th>
                 <th>EndDate</th>
                 <th>Calendar Items</th>
+				<th>Skating Sessions</th>
                 <th>Edit</th>
                 <th>Delete</th>
 				<th>Current</th>
@@ -67,7 +69,8 @@
                     <td>${term.termName}</td>
                     <td>${term.startDate}</td>
                     <td>${term.endDate}</td>
-                    <td><a href="<c:url value="/calendarItem/index.do" />?id=${term.id}">View</a></td>
+                    <td>${term.calendarItems.size()} - <a href="<c:url value="/calendarItem/index.do" />?id=${term.id}">View</a></td>
+					<td>${term.sessions.size()} - <a href="<c:url value="/skatingSession/index.do" />?id=${term.id}">View</a></td>
                     <td><a href="<c:url value="/registrationTerm/edit.do" />?id=${term.id}">Edit</a></td>
                     <td><a href="<c:url value="/registrationTerm/deleteConfirm.do" />?id=${term.id}">Delete</a></td>
 					<td>

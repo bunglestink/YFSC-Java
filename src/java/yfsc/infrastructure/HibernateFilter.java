@@ -24,14 +24,17 @@ public class HibernateFilter implements Filter {
 		
 		session.beginTransaction();
         
-        chain.doFilter(request, response);
-        
 		try {
-			session.getTransaction().commit();
+			chain.doFilter(request, response);
 		}
-		catch (Exception e) {
-			logger.warning("Rolling back Hibernate transaction");
-			session.getTransaction().rollback();
+		finally {
+			try {
+				session.getTransaction().commit();
+			}
+			catch (Exception e) {
+				logger.warning("Rolling back Hibernate transaction");
+				session.getTransaction().rollback();
+			}	
 		}
     }
 

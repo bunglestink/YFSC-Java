@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Service;
+import yfsc.entities.RegistrationTerm;
 import yfsc.entities.SkatingSession;
 
 @Service
@@ -41,4 +42,15 @@ public class SkatingSessionService implements IPersistenceService<SkatingSession
     public void delete(SkatingSession skatingSession) {
         sessionFactory.getCurrentSession().delete(skatingSession);
     }
+	
+	public RegistrationTerm getRegistrationTerm(SkatingSession session) {
+		
+		Query query = sessionFactory.getCurrentSession().createQuery("from RegistrationTerm r where :session in elements(r.sessions)");
+		query.setParameter("session", session);
+		List<RegistrationTerm> results = Collections.checkedList(query.list(), RegistrationTerm.class);
+		if (results.size() != 1) {
+			return null;
+		}
+		return results.get(0);
+	}
 }

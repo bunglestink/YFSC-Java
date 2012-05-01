@@ -1,6 +1,7 @@
 package yfsc.entities;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,6 +39,26 @@ public class SkatingSession extends EntityObject {
 	private String description;
 
 	
+	
+	
+	
+	
+	private static SimpleDateFormat dateFormat;
+    static {
+        dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+    }
+    
+    public String getStartDateString() {
+        return dateFormat.format(getStartDate());
+    }
+    public void setStartDateString(String startDate) {
+        try {
+            this.setStartDate(dateFormat.parse(startDate.trim()));
+        }
+        catch (Throwable x) {
+            this.setStartDate(null);
+        }
+    }
 	
 	
 	
