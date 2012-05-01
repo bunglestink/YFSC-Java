@@ -6,6 +6,8 @@ to use a different color start by replacing all instances of
 body
 {
     background-color: #5c87b2;
+	background: -webkit-gradient(linear, left top, left bottom, from(#5c87b2), to(#374DCC)); /* for webkit browsers */
+    background: -moz-linear-gradient(top,  #5c87b2,  #374DCC); /* for firefox 3.6+ */ 
     font-size: 75%;
     font-family: Verdana, Tahoma, Arial, "Helvetica Neue", Helvetica, Sans-Serif;
     margin: 0;
