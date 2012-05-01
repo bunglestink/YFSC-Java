@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import yfsc.entities.RegistrationTerm;
 import yfsc.entities.persistence.RegistrationTermService;
 
@@ -89,4 +90,16 @@ public class RegistrationTermController {
         
         return index(model);
     }
+	
+	
+	@RequestMapping("/setCurrent.do")
+	public @ResponseBody boolean setCurrent(@RequestParam("id") int id) {
+		RegistrationTerm term = registrationTermService.get(id);
+		if (term == null) {
+			return false;
+		}
+		
+		registrationTermService.setCurrent(term);
+		return true;
+	}
 }

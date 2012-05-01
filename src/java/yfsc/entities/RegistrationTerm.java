@@ -24,6 +24,9 @@ public class RegistrationTerm extends EntityObject {
     @Column(name="EndDate")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date endDate;
+	
+	@Column(name="Current")
+	private boolean current;
 
     @OneToMany(mappedBy = "registrationTerm")
 	private List<CalendarItem> calendarItems;
@@ -100,5 +103,13 @@ public class RegistrationTerm extends EntityObject {
 
 	public void setSessions(List<SkatingSession> sessions) {
 		this.sessions = sessions;
+	}
+
+	public boolean isCurrent() {
+		return current;
+	}
+
+	public void setCurrent(boolean current) {
+		this.current = current;
 	}
 }

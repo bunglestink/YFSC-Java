@@ -11,11 +11,9 @@ import yfsc.entities.RegistrationTerm;
 public class RegistrationTermService implements IPersistenceService<RegistrationTerm> {
 
     SessionFactory sessionFactory;
-	int currentTermId;
     
-    public RegistrationTermService(SessionFactory sessionFactory, int currentTermId) {
+    public RegistrationTermService(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-		this.currentTermId = currentTermId;
     }
     
     @Override
@@ -28,10 +26,6 @@ public class RegistrationTermService implements IPersistenceService<Registration
     public RegistrationTerm get(int id) {
         return (RegistrationTerm)sessionFactory.getCurrentSession().get(RegistrationTerm.class, id);
     }
-	
-	public RegistrationTerm getCurrent() {
-		return get(currentTermId);
-	}
     
     @Override
     public void saveOrUpdate(RegistrationTerm term) {
@@ -47,4 +41,24 @@ public class RegistrationTermService implements IPersistenceService<Registration
     public void delete(RegistrationTerm term) {
         sessionFactory.getCurrentSession().delete(term);
     }
+	
+	
+	public RegistrationTerm getCurrent() {
+		Query query = sessionFactory.getCurrentSession().createQuery("from RegistrationTerm r where r.current = 't'");
+		List<RegistrationTerm> terms = Collections.checkedList(query.list(), RegistrationTerm.class);
+		if (terms.size() != 1) {
+			return null;
+		}
+		return terms.get(0);
+	}
+	
+	public void setCurrent(RegistrationTerm term) {
+		Query query = sessionFactory.getCurrentSession().createQuery("from RegistrationTerm");
+		List<RegistrationTerm> terms = Collections.checkedList(query.list(), RegistrationTerm.class);
+		
+		for (RegistrationTerm t : terms) {
+			t.setCurrent(false);
+		}
+		term.setCurrent(true);
+	}
 }

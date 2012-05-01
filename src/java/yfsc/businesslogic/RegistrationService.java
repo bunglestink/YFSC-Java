@@ -15,6 +15,7 @@ import yfsc.entities.InvoiceItem;
 import yfsc.entities.SkatingSession;
 import yfsc.entities.User;
 import yfsc.entities.persistence.InvoiceService;
+import yfsc.entities.persistence.RegistrationTermService;
 import yfsc.entities.persistence.SkatingSessionService;
 
 
@@ -24,11 +25,14 @@ public class RegistrationService {
 	private SessionFactory sessionFactory;
 	private InvoiceService invoiceService;
 	private SkatingSessionService skatingSessionService;
+	private RegistrationTermService registrationTermService;
 	
-	public RegistrationService(SessionFactory sessionFactory, InvoiceService invoiceService, SkatingSessionService skatingSessionService) {
+	public RegistrationService(SessionFactory sessionFactory, InvoiceService invoiceService, 
+			SkatingSessionService skatingSessionService, RegistrationTermService registrationTermService) {
 		this.sessionFactory = sessionFactory;
 		this.invoiceService = invoiceService;
 		this.skatingSessionService = skatingSessionService;
+		this.registrationTermService = registrationTermService;
 	}
 	
 	
@@ -41,6 +45,7 @@ public class RegistrationService {
 		Session session = sessionFactory.getCurrentSession();
 		
 		registration.setUser(user);
+		registration.setRegistrationTerm(registrationTermService.getCurrent());
 		
 		// swap JSON skating sessions for actual entities
 		for (AnnualRegistrationSkater skater : registration.getSkaters()) {

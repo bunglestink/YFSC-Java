@@ -70,11 +70,11 @@
 		<constructor-arg index="0" ref="sessionFactory" />
 		<constructor-arg index="1" ref="invoiceService" />
 		<constructor-arg index="2" ref="skatingSessionService" />
+		<constructor-arg index="3" ref="registrationTermService" />
 	</bean>
 	
     <bean id="registrationTermService" class="yfsc.entities.persistence.RegistrationTermService">
         <constructor-arg index="0" ref="sessionFactory" />
-		<constructor-arg index="1" value="1" />
     </bean>
 	
 	<bean id="skatingSessionService" class="yfsc.entities.persistence.SkatingSessionService">

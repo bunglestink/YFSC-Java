@@ -426,3 +426,7 @@ div#title
 .invoice-header .not-paid-in-full { color: #f00; }
 .dialog {display:none;}
 .dialog label {width: 100px; display: inline-block;}
+.current-term-row {background-color: yellow;}
+.current-term {display:none;}
+.current-term-row .current-term {display:inline;}
+.current-term-row .set-current {display:none;}
