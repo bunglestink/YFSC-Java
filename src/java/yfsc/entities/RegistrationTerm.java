@@ -27,6 +27,10 @@ public class RegistrationTerm extends EntityObject {
 
     @OneToMany(mappedBy = "registrationTerm")
 	private List<CalendarItem> calendarItems;
+	
+	@OneToMany
+	@JoinColumn(name="RegistrationTermID")
+	private List<SkatingSession> sessions;
 
     
     
@@ -88,5 +92,13 @@ public class RegistrationTerm extends EntityObject {
 
 	public void setCalendarItems(List<CalendarItem> calendarItems) {
 		this.calendarItems = calendarItems;
+	}
+
+	public List<SkatingSession> getSessions() {
+		return sessions;
+	}
+
+	public void setSessions(List<SkatingSession> sessions) {
+		this.sessions = sessions;
 	}
 }

@@ -11,9 +11,11 @@ import yfsc.entities.RegistrationTerm;
 public class RegistrationTermService implements IPersistenceService<RegistrationTerm> {
 
     SessionFactory sessionFactory;
+	int currentTermId;
     
-    public RegistrationTermService(SessionFactory sessionFactory) {
+    public RegistrationTermService(SessionFactory sessionFactory, int currentTermId) {
         this.sessionFactory = sessionFactory;
+		this.currentTermId = currentTermId;
     }
     
     @Override
@@ -26,6 +28,10 @@ public class RegistrationTermService implements IPersistenceService<Registration
     public RegistrationTerm get(int id) {
         return (RegistrationTerm)sessionFactory.getCurrentSession().get(RegistrationTerm.class, id);
     }
+	
+	public RegistrationTerm getCurrent() {
+		return get(currentTermId);
+	}
     
     @Override
     public void saveOrUpdate(RegistrationTerm term) {

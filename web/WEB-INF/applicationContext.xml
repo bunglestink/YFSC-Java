@@ -74,6 +74,7 @@
 	
     <bean id="registrationTermService" class="yfsc.entities.persistence.RegistrationTermService">
         <constructor-arg index="0" ref="sessionFactory" />
+		<constructor-arg index="1" value="1" />
     </bean>
 	
 	<bean id="skatingSessionService" class="yfsc.entities.persistence.SkatingSessionService">
