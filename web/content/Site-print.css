@@ -3,3 +3,8 @@
 #footer{display:none;}
 .invoice-options {display:none;}
 .print-hide{display:none;}
+#main{border-radius: 0px;
+    -moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
