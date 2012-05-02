@@ -3,6 +3,7 @@ package yfsc.controllers;
 import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import yfsc.entities.persistence.AnnouncementService;
 
 @Controller
 @RequestMapping("/announcement")
+@PreAuthorize("hasRole('Admin')")
 public class AnnouncementController {
     
     @Inject private AnnouncementService announcementService;

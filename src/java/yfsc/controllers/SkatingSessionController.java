@@ -2,6 +2,7 @@ package yfsc.controllers;
 
 import java.util.List;
 import javax.inject.Inject;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,11 +15,11 @@ import yfsc.models.ViewSkatingSession;
 
 @Controller
 @RequestMapping("/skatingSession")
+@PreAuthorize("hasRole('Admin')")
 public class SkatingSessionController {
     
     @Inject private SkatingSessionService skatingSessionService;
 	@Inject private RegistrationTermService registrationTermService;
-    
     
     
     
